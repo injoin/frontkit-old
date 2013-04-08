@@ -1,0 +1,25 @@
+// NAVS
+// -----------------------
+
+.nav {
+  list-style: none;
+  margin-left: 0;
+
+  > .nav-header {
+    margin-top: @line-height-base;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  > li {
+    > a {
+      display: block;
+      padding: 3px @line-height-base;
+      text-decoration: none;
+
+      &:hover {
+        background-color: darken(@gray-lighter, 3%);
+      }
+    }
+  }
+}

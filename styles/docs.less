@@ -1,0 +1,72 @@
+.docs {
+  position: relative;
+  padding-left: (@docs-sidebar-width + (@line-height-base * 2));
+  padding-right: (@line-height-base * 2);
+}
+
+.docs-sidebar {
+  position: fixed;
+  left: 0;
+  float: left;
+  width: @docs-sidebar-width;
+  height: 100%;
+  border-right: 1px solid @docs-sidebar-border;
+  background: @docs-sidebar-bg;
+  overflow-y: auto;
+
+  > .page-header {
+    margin-top: 0;
+    padding-left: @line-height-base;
+    padding-right: @line-height-base;
+    border-bottom-color: lighten(@docs-sidebar-border, 10%);
+
+    > * {
+      line-height: 1;
+    }
+  }
+}
+
+.docs-content {
+  padding: (@line-height-base * 2) 0;
+
+  .docs-example {
+    position: relative;
+    margin-bottom: @line-height-base;
+    padding: ((@line-height-base * 2) + 10px) @line-height-base @line-height-base;
+    border: 1px solid @docs-example-border;
+    background-color: @docs-example-bg;
+    border-radius: @border-radius-base;
+
+    &:before {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      padding: 5px (@line-height-base / 2);
+      border: 1px solid @docs-example-border;
+      color: @gray-light;
+      font-family: @font-family-base;
+      font-size: 0.9rem;
+      font-weight: bold;
+      background-color: @gray-lighter;
+      content: @docs-example-word;
+      border-radius: @border-radius-base 0 @border-radius-base 0;
+    }
+  }
+}
+
+// Adjustments for RTL
+.docs-rtl {
+  padding-left: (@line-height-base * 2);
+  padding-right: (@docs-sidebar-width + (@line-height-base * 2));
+
+  > .docs-sidebar {
+    right: 0;
+    border-left: 1px solid @docs-sidebar-border;
+  }
+
+  > .docs-content .docs-example:before {
+    left: auto;
+    right: -1px;
+    border-radius: 0 @border-radius-base 0 @border-radius-base;
+  }
+}

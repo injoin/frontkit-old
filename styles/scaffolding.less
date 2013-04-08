@@ -1,0 +1,54 @@
+// SCAFFOLDING
+// -----------------------
+
+// Reset box-sizing!
+// http://paulirish.com/2012/box-sizing-border-box-ftw/
+* {
+  .box-sizing(border-box);
+}
+
+// Body reset
+// ---------------------
+
+html {
+  font-size: @font-size-base;
+}
+
+body {
+  color: @text-color;
+  background-color: @body-bg;
+}
+
+// Reset font stuff in elements
+body,
+input,
+button
+select,
+textarea {
+  line-height: @line-height-base;
+  font-family: @font-family-base;
+  font-size: @font-size-base;
+}
+
+// Links
+// ---------------------
+a {
+  color: @link-color;
+
+  &:hover {
+    color: @link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+// Images
+// ---------------------
+img {
+  // Responsive images
+  max-width: 100%;  // 1. Set max width relative to its parent
+  width: auto\9;    // IE8 hack
+  height: auto;     // 2. Scale the height according to the width, otherwise you get stretching
+
+  // Vertically align with other elements
+  vertical-align: middle;
+}
