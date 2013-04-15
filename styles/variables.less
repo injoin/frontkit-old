@@ -5,24 +5,24 @@
 // ------
 
 // Grays
-@gray-darker:   #222;
-@gray-dark:     #333;
-@gray:          #555;
-@gray-light:    #999;
-@gray-lighter:  #eee;
+@gray-darker:       #222;
+@gray-dark:         #333;
+@gray:              #555;
+@gray-light:        #999;
+@gray-lighter:      #eee;
 
 // Brands
-@brand-default: #fff;
-@brand-primary: #428bca;
-@brand-success: #5cb85c;
-@brand-warning: #f0ad4e;
-@brand-danger:  #bd362f;
-@brand-info:    #5bc0de;
+@brand-default:     #fff;
+@brand-primary:     #0088cc;
+@brand-success:     #5cb85c;
+@brand-warning:     #f0ad4e;
+@brand-danger:      #bd362f;
+@brand-info:        #5bc0de;
 
 // Scaffolding
 // -----------
-@body-bg:     #fff;
-@text-color:  @gray-dark;
+@body-bg:           #fff;
+@text-color:        @gray-dark;
 
 // links
 @link-color:        @brand-primary;
@@ -36,7 +36,7 @@
 @font-family-base:        @font-family-sans-serif;
 
 @font-family-headings:    @font-family-base;
-@font-weight-headings:    normal;
+@font-weight-headings:    bold;
 
 @font-size-base:          14px;
 @font-size-large:         @font-size-base * 1.25;
@@ -46,8 +46,8 @@
 
 // Code
 // ----
-@code-border:   #e1e1e1;
-@code-bg:       #f7f7f7;
+@code-border:                 #e1e1e1;
+@code-bg:                     #f7f7f7;
 
 // Components
 // ----------
@@ -63,12 +63,18 @@
 @input-disabled-bg:       @gray-lighter;
 @input-placeholder-color: @gray-light;
 
+@input-focus-border:      fade(#52a8ec, 80%);
+@input-focus-shadow:      fade(#52a8ec, 60%);
+
 @input-border:            #ccc;
 @input-border-radius:     @border-radius-base;
 
-
 @input-height-base:       @line-height-base * 1.5;
 @input-height-large:      @line-height-base * 1.5;
+
+// Buttons
+// -------
+@btn-border:              @gray-light;
 
 // Hero Unit
 // ---------
@@ -83,6 +89,12 @@
 @docs-example-bg:       #fff;
 @docs-example-border:   darken(@docs-example-bg, 15%);
 @docs-example-word:     "Example";
+
+// Icons
+// -----
+@font-path:         "../fonts";
+@icon-base-class:   icon;
+@icon-prefix:       icon-;
 
 // Grid
 // ----

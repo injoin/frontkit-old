@@ -17,6 +17,14 @@
   }
 }
 
+.tab-focus() {
+  // Default
+  outline: thin dotted #333;
+  // Webkit
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
 // Text overflow - requires inline-block or block to work
 .text-overflow() {
   overflow: hidden;
@@ -36,6 +44,13 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.placeholder(@color: @input-placeholder-color) {
+  &:-moz-placeholder            { color: @color; }
+  &::-moz-placeholder           { color: @color; }
+  &:-ms-input-placeholder       { color: @color; }
+  &::-webkit-input-placeholder  { color: @color; }
 }
 
 // CSS3 Properties
@@ -130,6 +145,7 @@
 
 .brand-colors(@brand: @brand-default, @color: @text-color) {
   color: @color;
+  border-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 10%) rgba(0, 0, 0, 25%);
   #gradient > .vertical(@brand, darken(@brand, 15%));
 }
 

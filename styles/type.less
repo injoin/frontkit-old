@@ -26,6 +26,7 @@ cite    { font-style: normal; }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: inherit;
   font-family: @font-family-headings;
   font-weight: @font-weight-headings;
   text-rendering: optimizeLegibility;
@@ -51,10 +52,10 @@ h4, h5, h6 {
 
 h1, .h1 { font-size: 3.8rem;  line-height: 4rem; }
 h2, .h2 { font-size: 3rem;    line-height: 3.2rem; }
-h3, .h3 { font-size: 2.3rem;  line-height: 2.5rem; }
+h3, .h3 { font-size: 2.5rem;  line-height: 2.5rem; }
 h4, .h4 { font-size: 1.9rem;  line-height: 2.1rem; }
-h5, .h5 { font-size: 1.5rem;  line-height: 1.7rem; }
-h6, .h6 { font-size: 1.1rem;  line-height: 1.3rem; }
+h5, .h5 { font-size: 1.5rem;  line-height: 1.75rem; }
+h6, .h6 { font-size: 1rem;  line-height: 1.2rem; }
 
 h1 small, .h1 small { font-size: 1.75rem; }
 h2 small, .h2 small { font-size: 1.4rem; }
@@ -185,3 +186,12 @@ blockquote {
 .text-align   { text-align: left; }
 .text-center  { text-align: center; }
 .text-right   { text-align: right; }
+
+// Misc
+// ----
+hr {
+  margin: @line-height-base 0;
+  border: 0;
+  border-top: 1px solid darken(@body-bg, 10%);
+  border-bottom: 1px solid @body-bg;
+}
