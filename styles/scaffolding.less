@@ -1,15 +1,17 @@
 // SCAFFOLDING
 // -----------------------
 
-// Reset box-sizing!
-// http://paulirish.com/2012/box-sizing-border-box-ftw/
-* {
-  .box-sizing(border-box);
+/*
+ * 1. http://paulirish.com/2012/box-sizing-border-box-ftw/
+ * 2. Override Normalize, which uses content-box for input search
+ */
+*, /* 1 */
+input[type="search"] { /* 2 */
+  .box-sizing( border-box );
 }
 
 // Body reset
 // ---------------------
-
 html {
   font-size: @font-size-base;
 }

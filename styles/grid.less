@@ -10,7 +10,7 @@
   .make-row();
 }
 
-[class*="col-span"] {
+.col {
   position: relative;
   min-height: 1px;
   padding-left: (@grid-gutter-width / 2);
@@ -18,9 +18,7 @@
 }
 
 @media screen and (min-width: @grid-float-breakpoint) {
-  [class*="col-span"] {
-    float: left;
-  }
+  .col { float: left; }
 
   .generate-grid(@grid-columns);
 }

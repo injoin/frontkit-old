@@ -5,7 +5,7 @@
 // ----------
 
 p {
-  margin: 0 0 (@line-height-base / 2);
+  margin: 0 0 ( @line-height-base / 2 );
 
   &.lead {
     font-size: 1.5rem;
@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6,
   text-rendering: optimizeLegibility;
 
   small {
-    color: lighten(@text-color, 10%);
+    color: lighten( @text-color, 10% );
     font-weight: normal;
     line-height: 1;
   }
@@ -40,14 +40,14 @@ h1, h2, h3, h4, h5, h6,
 
 h1, h2, h3 {
   margin-top: @line-height-base;
-  margin-bottom: (@line-height-base / 2);
+  margin-bottom: ( @line-height-base / 2 );
 
   font-size: 50%;
 }
 
 h4, h5, h6 {
-  margin-top: (@line-height-base / 2);
-  margin-bottom: (@line-height-base / 2);
+  margin-top: ( @line-height-base / 2 );
+  margin-bottom: ( @line-height-base / 2 );
 }
 
 h1, .h1 { font-size: 3.8rem;  line-height: 4rem; }
@@ -55,7 +55,7 @@ h2, .h2 { font-size: 3rem;    line-height: 3.2rem; }
 h3, .h3 { font-size: 2.5rem;  line-height: 2.5rem; }
 h4, .h4 { font-size: 1.9rem;  line-height: 2.1rem; }
 h5, .h5 { font-size: 1.5rem;  line-height: 1.75rem; }
-h6, .h6 { font-size: 1rem;  line-height: 1.2rem; }
+h6, .h6 { font-size: 1rem;    line-height: 1.2rem; }
 
 h1 small, .h1 small { font-size: 1.75rem; }
 h2 small, .h2 small { font-size: 1.4rem; }
@@ -66,8 +66,8 @@ h4 small, .h4 small { font-size: 1rem; }
 // -----------
 
 .page-header {
-  margin: (@line-height-base * 2) 0 @line-height-base;
-  padding-bottom: (@line-height-base / 3);
+  margin: ( @line-height-base * 2 ) 0 @line-height-base;
+  padding-bottom: ( @line-height-base / 3 );
   border-bottom: 1px solid @gray-light;
 }
 
@@ -76,7 +76,7 @@ h4 small, .h4 small { font-size: 1rem; }
 
 ul, ol {
   padding: 0;
-  margin: 0 0 (@line-height-base / 2) @line-height-base;
+  margin: 0 0 ( @line-height-base / 2 ) @line-height-base;
 
   > ul, > ol {
     margin-bottom: 0;
@@ -115,7 +115,7 @@ dt {
 }
 
 dd {
-  margin-left: (@line-height-base / 2);
+  margin-left: ( @line-height-base / 2 );
 }
 
 dl.dl-horizontal {
@@ -138,7 +138,7 @@ dl.dl-horizontal {
 // ----
 abbr[title] {
   cursor: help;
-  border-bottom: 1px dotted lighten(@text-color, 20%);
+  border-bottom: 1px dotted lighten( @text-color, 20% );
 }
 
 address {
@@ -192,6 +192,6 @@ blockquote {
 hr {
   margin: @line-height-base 0;
   border: 0;
-  border-top: 1px solid darken(@body-bg, 10%);
+  border-top: 1px solid darken( @body-bg, 10% );
   border-bottom: 1px solid @body-bg;
 }

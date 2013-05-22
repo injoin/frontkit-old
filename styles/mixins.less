@@ -46,7 +46,7 @@
   margin-right: auto;
 }
 
-.placeholder(@color: @input-placeholder-color) {
+.placeholder( @color: @input-placeholder-color ) {
   &:-moz-placeholder            { color: @color; }
   &::-moz-placeholder           { color: @color; }
   &:-ms-input-placeholder       { color: @color; }
@@ -57,34 +57,34 @@
 // ---------------
 
 // border-radius - single side
-.border-top-radius(@radius) {
+.border-top-radius( @radius ) {
   border-top-left-radius: @radius;
   border-top-right-radius: @radius;
 }
 
-.border-left-radius(@radius) {
+.border-left-radius( @radius ) {
   border-top-left-radius: @radius;
   border-bottom-left-radius: @radius;
 }
 
-.border-right-radius(@radius) {
+.border-right-radius( @radius ) {
   border-top-right-radius: @radius;
   border-bottom-right-radius: @radius;
 }
 
-.border-bottom-radius(@radius) {
+.border-bottom-radius( @radius ) {
   border-bottom-left-radius: @radius;
   border-bottom-right-radius: @radius;
 }
 
 // box-shadow
-.box-shadow(@shadow) {
+.box-shadow( @shadow ) {
   -webkit-box-shadow: @shadow; // iOS < 4.3 & Android < 4.1
           box-shadow: @shadow;
 }
 
 // transition
-.transition(@transition) {
+.transition( @transition ) {
   -webkit-transition: @transition;
      -moz-transition: @transition;
        -o-transition: @transition;
@@ -92,7 +92,7 @@
 }
 
 // box-sizing
-.box-sizing(@boxmodel) {
+.box-sizing( @boxmodel ) {
   -webkit-box-sizing: @boxmodel;
      -moz-box-sizing: @boxmodel;
           box-sizing: @boxmodel;
@@ -109,44 +109,44 @@
 }
 
 // opacity
-.opacity(@opacity) {
-  @opacity-ie: (@opacity * 100);
+.opacity( @opacity ) {
+  @opacity-ie: ( @opacity * 100 );
 
   opacity: @opacity;
   filter: ~"alpha(opacity=@{opacity-ie})";
 }
 
 #gradient {
-  .horizontal(@startColor, @endColor) {
+  .horizontal( @startColor, @endColor ) {
     background-color: @endColor;
-    background-image: -webkit-linear-gradient(left, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-    background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-    background-image: -moz-linear-gradient(left, @startColor, @endColor); // FF 3.6+
-    background-image: -o-linear-gradient(left, @startColor, @endColor); // Opera 11.10
-    background-image: linear-gradient(to right, @startColor, @endColor); // Standard, IE10
+    background-image: -webkit-linear-gradient( left, @startColor, @endColor ); // Safari 5.1+, Chrome 10+
+    background-image: -webkit-gradient( linear, 0 0, 100% 0, from( @startColor ), to( @endColor ) ); // Safari 4+, Chrome 2+
+    background-image: -moz-linear-gradient( left, @startColor, @endColor ); // FF 3.6+
+    background-image: -o-linear-gradient( left, @startColor, @endColor ); // Opera 11.10
+    background-image: linear-gradient( to right, @startColor, @endColor ); // Standard, IE10
     background-repeat: repeat-x;
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@startColor),argb(@endColor))); // IE9 and down
+    filter: e( %( "progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)", argb( @startColor ), argb( @endColor ) ) ); // IE9 and down
   }
 
-  .vertical(@startColor, @endColor) {
+  .vertical( @startColor, @endColor ) {
     background-color: @endColor;
-    background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-    background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
-    background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
-    background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
+    background-image: -webkit-linear-gradient( top, @startColor, @endColor ); // Safari 5.1+, Chrome 10+
+    background-image: -webkit-gradient( linear, 0 0, 0 100%, from( @startColor ), to( @endColor ) ); // Safari 4+, Chrome 2+
+    background-image: -moz-linear-gradient( top, @startColor, @endColor ); // FF 3.6+
+    background-image: -o-linear-gradient( top, @startColor, @endColor ); // Opera 11.10
+    background-image: linear-gradient( to bottom, @startColor, @endColor ); // Standard, IE10
     background-repeat: repeat-x;
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor))); // IE9 and down
+    filter: e( %( "progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", argb( @startColor ), argb( @endColor ) ) ); // IE9 and down
   }
 }
 
 // Component mixins
 // ----------------
 
-.brand-colors(@brand: @brand-default, @color: @text-color) {
+.brand-colors( @brand: @brand-default, @color: @text-color ) {
   color: @color;
-  border-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 10%) rgba(0, 0, 0, 25%);
-  #gradient > .vertical(@brand, darken(@brand, 15%));
+  border-color: rgba( 0, 0, 0, 10% ) rgba( 0, 0, 0, 10% ) rgba( 0, 0, 0, 25% );
+  #gradient > .vertical( @brand, darken( @brand, 15% ) );
 }
 
 .brand-sizing-mini() {
@@ -165,40 +165,40 @@
 // ------------------
 .make-row() {
   // Negative margin the row out to align the content of columns
-  margin-left:  (@grid-gutter-width / -2);
-  margin-right: (@grid-gutter-width / -2);
+  margin-left:  ( @grid-gutter-width / -2 );
+  margin-right: ( @grid-gutter-width / -2 );
 
   .clear-float();
 }
 
-.generate-grid(@columns-count: @grid-columns) {
+.generate-grid( @columns-count: @grid-columns ) {
 
   // Default columns
-  .spanX(@index) when (@index > 0) {
-    .col-span@{index} { .span(@index); }
-    .spanX((@index - 1));
+  .spanX( @index ) when ( @index > 0 ) {
+    .col-span@{index} { .span( @index ); }
+    .spanX( ( @index - 1 ) );
   }
-  .spanX(0) {}
+  .spanX( 0 ) {}
 
-  .span(@columns) {
-    width: percentage((@columns / @columns-count));
+  .span( @columns ) {
+    width: percentage( ( @columns / @columns-count ) );
   }
 
   // -----
 
   // Offseting
-  .offsetX(@index) when (@index > 0) {
-    .col-offset@{index} { .offset(@index); }
-    .offsetX((@index - 1));
+  .offsetX( @index ) when ( @index > 0 ) {
+    .col-offset@{index} { .offset( @index ); }
+    .offsetX( ( @index - 1 ) );
   }
-  .offsetX(0) {}
+  .offsetX( 0 ) {}
 
-  .offset(@columns) {
-    margin-left: percentage((@columns / @columns-count));
+  .offset( @columns ) {
+    margin-left: percentage( ( @columns / @columns-count ) );
   }
 
   // -----
 
-  .spanX(@grid-columns);
-  .offsetX(@grid-columns);
+  .spanX( @grid-columns );
+  .offsetX( @grid-columns );
 }
