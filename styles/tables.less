@@ -1,0 +1,131 @@
+/* TABLES
+---------------------------------------- */
+
+// Any table
+// ---------
+table {
+  max-width: 100%;
+  background-color: @table-bg;
+}
+
+th {
+  text-align: left;
+}
+
+// Base styles
+// -----------
+table.table {
+  width: 100%;
+  margin-bottom: @line-height-base;
+  table-layout: fixed;
+  
+  thead,
+  tbody,
+  tfoot {
+    > tr > th,
+    > tr > td {
+      padding: 8px;
+      border-top: 1px solid @table-border-color;
+    }
+  }
+  
+  caption + thead tr:first-child,
+  colgroup + thead tr:first-child,
+  thead:first-child tr:first-child {
+    td, th {
+      border-top: 0;
+    }
+  }
+  
+  tbody + tbody {
+    border-top: 2px solid @table-border-color;
+  }
+  
+  > thead > tr > th {
+    vertical-align: bottom;
+  }
+}
+
+// Striping
+// --------
+.table.table-striped {
+  > tbody > tr:nth-child(odd) {
+    > td,
+    > th {
+      background-color: @table-bg-accent;
+    }
+  }
+}
+
+// Bordered
+// --------
+.table.table-bordered {
+  border: 1px solid @table-border-color;
+  border-left-width: 0;
+  border-collapse: separate;
+  border-radius: @border-radius-base;
+  
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr > td,
+    > tr > th {
+      border-left: 1px solid @table-border-color;
+    }
+  }
+  
+  colgroup:first-child + thead,
+  colgroup:first-child + tbody,
+  > thead:first-child,
+  > tbody:first-child {
+    > tr:first-child > td,
+    > tr:first-child > th {
+      &:first-child {
+        border-top-left-radius: @border-radius-base;
+      }
+
+      &:last-child {
+        border-top-right-radius: @border-radius-base;
+      }
+    }
+  }
+  
+  > thead:last-child,
+  > tbody:last-child,
+  > tfoot:last-child {
+    > tr:last-child > td,
+    > tr:last-child > th {
+      &:first-child {
+        border-bottom-left-radius: @border-radius-base;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: @border-radius-base;
+      }
+    }
+  }
+}
+
+// Hover
+// -----
+.table.table-hover {
+  tbody > tr:hover {
+    td,
+    th {
+      background-color: @table-bg-hover;
+    }
+  }
+}
+
+// Grid sizing
+// -----------
+table col.col {
+  float: none;
+  display: table-column;
+}
+
+table td.col,
+table th.col {
+  float: none;
+  display: table-cell;
+}
