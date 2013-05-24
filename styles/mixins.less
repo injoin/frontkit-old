@@ -161,6 +161,15 @@
   font-size: @font-size-large;
 }
 
+.link() {
+  color: @link-color;
+
+  &:hover {
+    color: @link-color-hover;
+    text-decoration: underline;
+  }
+}
+
 // The Grid & Layouts
 // ------------------
 .make-row() {

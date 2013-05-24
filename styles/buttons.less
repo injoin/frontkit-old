@@ -6,15 +6,15 @@
  */
 .btn {
   display: inline-block;
+  white-space: nowrap;
   margin-bottom: 0; /* 1 */
   padding: ( ( ( @input-height-base - @line-height-base ) / 2 ) - 1 ) 12px;
   border: 1px solid @btn-border;
   font-size: 1rem;
   line-height: @line-height-base;
   border-radius: @border-radius-base;
-  white-space: nowrap;
-
   .box-shadow( ~"inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1)" );
+  cursor: pointer;
 
   &:hover {
     background-position: 0 -15px;
@@ -26,11 +26,37 @@
   }
 }
 
-.btn {
+// Button styles
+// -------------
+.btn.btn-default {
   .brand-colors();
   border-bottom-color: @btn-border;
 }
 
-.btn.btn-primary {
-  .brand-colors( @brand-primary, #fff );
+.btn.btn-primary  { .brand-colors( @brand-primary, #fff ); }
+.btn.btn-success  { .brand-colors( @brand-success, #fff ); }
+.btn.btn-info     { .brand-colors( @brand-info, #fff ); }
+.btn.btn-warning  { .brand-colors( @brand-warning, #fff ); }
+.btn.btn-danger   { .brand-colors( @brand-danger, #fff ); }
+
+// Link buttons
+// ------------
+.btn.btn-link,
+.btn.btn-link:active,
+.btn.btn-link[ disabled ],
+fieldset[ disabled ] .btn.btn-link {
+  background: none;
+  .box-shadow( none );
+}
+
+.btn.btn-link,
+.btn.btn-link:hover,
+.btn.btn-link:active,
+.btn.btn-link:focus {
+  border: none;
+}
+
+.btn.btn-link {
+  border-radius: 0;
+  .link();
 }
