@@ -3,8 +3,8 @@
   
 .docs {
   position: relative;
-  padding-left: ( @docs-sidebar-width + ( @line-height-base * 2 ) );
-  padding-right: ( @line-height-base * 2 );
+  padding-left: ( @docs-sidebar-width + ( @line-height-computed * 2 ) );
+  padding-right: ( @line-height-computed * 2 );
 }
 
 .docs-sidebar {
@@ -19,8 +19,8 @@
 
   > .page-header {
     margin-top: 0;
-    padding-left: @line-height-base;
-    padding-right: @line-height-base;
+    padding-left: @line-height-computed;
+    padding-right: @line-height-computed;
     border-bottom-color: lighten(@docs-sidebar-border, 10%);
 
     > * {
@@ -30,12 +30,13 @@
 }
 
 .docs-content {
-  padding: (@line-height-base * 2) 0;
+  padding: (@line-height-computed * 2) 0;
 
   .docs-example {
     position: relative;
-    margin-bottom: @line-height-base;
-    padding: ( @line-height-base * 2 ) @line-height-base @line-height-base;
+    margin-bottom: @line-height-computed;
+    padding: @line-height-computed;
+    padding-top: ( @line-height-computed * 2 );
     border: 1px solid @docs-example-border;
     background-color: @docs-example-bg;
     border-radius: @border-radius-base;
@@ -59,8 +60,8 @@
 
 // Adjustments for RTL
 .docs-rtl {
-  padding-left: ( @line-height-base * 2 );
-  padding-right: ( @docs-sidebar-width + ( @line-height-base * 2 ) );
+  padding-left: ( @line-height-computed * 2 );
+  padding-right: ( @docs-sidebar-width + ( @line-height-computed * 2 ) );
 
   > .docs-sidebar {
     right: 0;

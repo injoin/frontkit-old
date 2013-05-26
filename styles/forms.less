@@ -32,25 +32,26 @@ label {
 // -------------
 select,
 textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="time"],
-input[type="month"],
-input[type="week"],
-input[type="number"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"] {
+input[ type="text" ],
+input[ type="password" ],
+input[ type="datetime" ],
+input[ type="datetime-local" ],
+input[ type="date" ],
+input[ type="time" ],
+input[ type="month" ],
+input[ type="week" ],
+input[ type="number" ],
+input[ type="url" ],
+input[ type="search" ],
+input[ type="tel" ],
+input[ type="color" ] {
   display: inline-block;
   min-height: @input-height-base;
   margin-bottom: ( @line-height-base / 2 );
-  padding: 6px 9px;
+  padding: @padding-base-vertical @padding-base-horizontal;
   border: 1px solid @input-border;
   border-radius: @input-border-radius;
+  line-height: @input-height-base;
   color: @gray;
   vertical-align: middle;
   background-color: @input-bg;
@@ -63,13 +64,13 @@ textarea {
 }
 
 // Reset width of some input types, because of the generic input selector
-input[type="file"],
-input[type="image"],
-input[type="reset"],
-input[type="submit"],
-input[type="button"],
-input[type="radio"],
-input[type="checkbox"] {
+input[ type="file" ],
+input[ type="image" ],
+input[ type="reset" ],
+input[ type="submit" ],
+input[ type="button" ],
+input[ type="radio" ],
+input[ type="checkbox" ] {
   width: auto;
 }
 
@@ -79,20 +80,20 @@ textarea {
 }
 
 textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="search"],
-input[type="url"],
-input[type="tel"],
-input[type="color"] {
+input[ type="text" ],
+input[ type="password" ],
+input[ type="datetime" ],
+input[ type="datetime-local" ],
+input[ type="date" ],
+input[ type="month" ],
+input[ type="time" ],
+input[ type="week" ],
+input[ type="number" ],
+input[ type="email" ],
+input[ type="search" ],
+input[ type="url" ],
+input[ type="tel" ],
+input[ type="color" ] {
   .box-shadow( inset 0 1px 1px rgba( 0, 0, 0, 0.1 ) );
   .transition( ~"border-color linear 0.2s, box-shadow linear 0.2s" );
 
@@ -104,30 +105,30 @@ input[type="color"] {
 }
 
 // Better positioning for radio and checkboxes
-input[type="checkbox"],
-input[type="radio"] {
+input[ type="checkbox" ],
+input[ type="radio" ] {
   margin: 3px 0 0;
   line-height: normal;
 }
 
 // Sets height of select and file to match text inputs
 select,
-input[type="file"] {
+input[ type="file" ] {
   height: @input-height-base;
   line-height: @input-height-base;
 }
 
 // Selects that may show more than one item at once must not have fixed height
-select[multiple],
-select[size] {
+select[ multiple ],
+select[ size ] {
   height: auto;
 }
 
 // Focus for select, file, radio and checkbox
 select,
-input[type="file"],
-input[type="radio"],
-input[type="checkbox"] {
+input[ type="file" ],
+input[ type="radio" ],
+input[ type="checkbox" ] {
   &:focus {
     .tab-focus();
   }
@@ -145,11 +146,11 @@ textarea {
 label,
 select,
 button,
-input[type="reset"],
-input[type="submit"],
-input[type="button"],
-input[type="checkbox"],
-input[type="radio"] {
+input[ type="reset" ],
+input[ type="submit" ],
+input[ type="button" ],
+input[ type="checkbox" ],
+input[ type="radio" ] {
   cursor: pointer;
 }
 
@@ -168,8 +169,8 @@ input[type="radio"] {
   }
 }
 
-.radio > input[type="radio"],
-.checkbox > input[type="checkbox"] {
+.radio > input[ type="radio" ],
+.checkbox > input[ type="checkbox" ] {
   float: left;
   margin-left: -20px;
 }
@@ -218,7 +219,7 @@ input[type="radio"] {
 }
 
 .input-group-addon {
-  padding: 0 12px;
+  padding: ( @padding-base-vertical - 1 ) @padding-base-horizontal;
   border: 1px solid @input-border;
   background: darken(@brand-default, 15%);
   border-radius: @border-radius-base;
@@ -235,15 +236,21 @@ input[type="radio"] {
   vertical-align: middle; /* 2 */
 
   &:first-child:not( :last-child ) {
-    &, .btn { .border-right-radius( 0 ); } /* 1 */
+    &, .btn {
+      .border-right-radius( 0 ); /* 1 */
+    }
   }
 
   &:last-child:not( :first-child ) {
-    &, .btn { .border-left-radius( 0 ); } /* 1 */
+    &, .btn {
+      .border-left-radius( 0 ); /* 1 */
+    }
   }
 
   &:not( :first-child ):not( :last-child ) {
-    &, .btn { border-radius: 0; } /* 1 */
+    &, .btn {
+      border-radius: 0; /* 1 */
+    }
   }
   
   &:not( :last-child ) {
