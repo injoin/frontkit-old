@@ -16,7 +16,7 @@ fieldset {
 legend {
   display: block;
   width: 100%;
-  margin-bottom: @line-height-base;
+  margin-bottom: @line-height-computed;
   border-bottom: 1px solid @gray-light;
   color: @gray-dark;
   line-height: ( @line-height-base * 2 );
@@ -47,7 +47,7 @@ input[ type="tel" ],
 input[ type="color" ] {
   display: inline-block;
   min-height: @input-height-base;
-  margin-bottom: ( @line-height-base / 2 );
+  margin-bottom: ( @line-height-computed / 2 );
   padding: @padding-base-vertical @padding-base-horizontal;
   border: 1px solid @input-border;
   border-radius: @input-border-radius;
@@ -159,9 +159,9 @@ input[ type="radio" ] {
 .radio,
 .checkbox {
   display: block;
-  min-height: @line-height-base;
+  min-height: @line-height-computed;
   padding-left: 20px;
-  margin-bottom: ( @line-height-base / 2 );
+  margin-bottom: ( @line-height-computed / 2 );
 
   > label {
     display: inline;
@@ -198,7 +198,7 @@ input[ type="radio" ] {
 // --------------
 .input-group {
   display: table;
-  margin-bottom: @line-height-base;
+  margin-bottom: @line-height-computed;
   
   &.col {
     float: none;
