@@ -171,10 +171,12 @@
 }
 
 // Input focusing it's here for convenience.
-.input-focus( @border-color: @input-border, @shadow-color: @input-focus-shadow ) {
-  border-color: @border-color;
+.input-focus( @focus-color: @input-focus ) {
+  border-color: @focus-color;
   outline: 0;
-  .box-shadow( ~"inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px @{shadow-color}" );
+  
+  @focus-shadow: fade( @focus-color, 80% );
+  .box-shadow( ~"inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px @{focus-shadow}" );
 }
 
 .form-field-validation-state( @state-name, @brand-color ) {
@@ -185,7 +187,7 @@
       border-color: @brand-color;
       
       &:focus {
-        .input-focus( @brand-color, @brand-color );
+        .input-focus( @brand-color );
       }
     }
   }
