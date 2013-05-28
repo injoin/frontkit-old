@@ -2,67 +2,41 @@
 ---------------------------------------- */
   
 .docs {
-  position: relative;
-  padding-left: ( @docs-sidebar-width + ( @line-height-computed * 2 ) );
-  padding-right: ( @line-height-computed * 2 );
+  .make-row();
 }
 
 .docs-sidebar {
-  position: fixed;
-  left: 0;
-  float: left;
-  width: @docs-sidebar-width;
-  height: 100%;
-  border-right: 1px solid @docs-sidebar-border;
-  background: @docs-sidebar-bg;
-  overflow-y: auto;
-
-  > .page-header {
-    margin-top: 0;
-    padding-left: @line-height-computed;
-    padding-right: @line-height-computed;
-    border-bottom-color: lighten(@docs-sidebar-border, 10%);
-
-    > * {
-      line-height: 1;
-    }
-  }
+  padding-top: @docs-spacing-size;
+  padding-bottom: @docs-spacing-size;
 }
 
-.docs-content {
-  padding: (@line-height-computed * 2) 0;
+.docs-content .docs-example {
+  position: relative;
+  margin-bottom: @line-height-computed;
+  padding: @line-height-computed;
+  padding-top: ( @line-height-computed * 2 );
+  border: 1px solid @docs-example-border;
+  background-color: @docs-example-bg;
+  border-radius: @border-radius-base;
 
-  .docs-example {
-    position: relative;
-    margin-bottom: @line-height-computed;
-    padding: @line-height-computed;
-    padding-top: ( @line-height-computed * 2 );
+  &:before {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 2px 5px;
     border: 1px solid @docs-example-border;
-    background-color: @docs-example-bg;
-    border-radius: @border-radius-base;
-
-    &:before {
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      padding: 2px 5px;
-      border: 1px solid @docs-example-border;
-      color: @gray-light;
-      font-family: @font-family-base;
-      font-size: 0.9rem;
-      font-weight: bold;
-      background-color: @gray-lighter;
-      content: @docs-example-word;
-      border-radius: @border-radius-base 0 @border-radius-base 0;
-    }
+    color: @gray-light;
+    font-family: @font-family-base;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: @gray-lighter;
+    content: @docs-example-word;
+    border-radius: @border-radius-base 0 @border-radius-base 0;
   }
 }
 
 // Adjustments for RTL
 .docs-rtl {
-  padding-left: ( @line-height-computed * 2 );
-  padding-right: ( @docs-sidebar-width + ( @line-height-computed * 2 ) );
-
   > .docs-sidebar {
     right: 0;
     border-left: 1px solid @docs-sidebar-border;

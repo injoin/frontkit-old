@@ -10,15 +10,30 @@
   .make-row();
 }
 
+/*
+ * 1. Avoid column collapsing when empty
+ */
 .col {
   position: relative;
-  min-height: 1px;
-  padding-left: (@grid-gutter-width / 2);
-  padding-right: (@grid-gutter-width / 2);
+  float: left;
+  width: 100%;
+  min-height: 1px; /* 1 */
+  padding-left:  ( @grid-gutter-width / 2 );
+  padding-right: ( @grid-gutter-width / 2 );
 }
 
-@media screen and (min-width: @grid-float-breakpoint) {
-  .col { float: left; }
-
+@media screen and ( min-width: @grid-float-breakpoint ) {
   .generate-grid(@grid-columns);
 }
+
+// Container sizing
+// ----------------
+
+// Small screens (tablets and old monitors)
+.media-query( @screen-small, 2 );
+
+// Medium screens (desktops and some tablets)
+.media-query( @screen-medium, 1 );
+
+// Large screens (modern monitors and newer)
+.media-query( @screen-large );

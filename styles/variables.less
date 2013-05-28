@@ -94,18 +94,19 @@
 
 // Docs
 // ----
-@docs-sidebar-width:    240px;
-@docs-sidebar-bg:       @gray-lighter;
-@docs-sidebar-border:   lighten( @gray-light, 10% );
-@docs-example-bg:       #fff;
-@docs-example-border:   darken( @docs-example-bg, 15% );
-@docs-example-word:     "Example";
+@docs-sidebar-width:      240px;
+@docs-sidebar-bg:         @gray-lighter;
+@docs-sidebar-border:     lighten( @gray-light, 10% );
+@docs-example-bg:         #fff;
+@docs-example-border:     darken( @docs-example-bg, 15% );
+@docs-example-word:       "Example";
+@docs-spacing-size:       ( @line-height-computed * 2 );
 
 // Icons
 // -----
-@font-path:         "../fonts";
-@icon-base-class:   icon;
-@icon-prefix:       icon-;
+@font-path:               "../fonts";
+@icon-base-class:         icon;
+@icon-prefix:             icon-;
 
 // Tables
 // ------
@@ -114,8 +115,24 @@
 @table-bg-hover:          @gray-lighter;
 @table-border-color:      darken( @gray-lighter, 10% );
 
+// Navs
+// ----
+@nav-list-hover-bg:       darken( @gray-lighter, 3% );
+@nav-list-header:         @gray-light;
+
+// Wells
+// -----
+@well-bg:                 darken( @body-bg, 5% );
+@well-border-color:       darken( @well-bg, 5% );
+
 // Grid
 // ----
 @grid-columns:            12;
 @grid-gutter-width:       30px;
 @grid-float-breakpoint:   768px;
+
+// Responsive Utils
+// ----------------
+@screen-small:            768px;
+@screen-medium:           980px;
+@screen-large:            1200px;

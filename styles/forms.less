@@ -98,9 +98,7 @@ input[ type="color" ] {
   .transition( ~"border-color linear 0.2s, box-shadow linear 0.2s" );
 
   &:focus {
-    border-color: @input-focus-border;
-    outline: 0;
-    .box-shadow( ~"inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px @{input-focus-shadow}" );
+    .input-focus();
   }
 }
 
@@ -193,6 +191,25 @@ input[ type="radio" ] {
     margin-bottom: 0;
   }
 }
+
+// Disabled state
+// --------------
+input,
+select,
+textarea {
+  &[ disabled ],
+  &[ readonly ],
+  fieldset[ disabled ] & {
+    cursor: not-allowed;
+    background-color: @input-disabled-bg;
+  }
+}
+
+// Validation states
+// -----------------
+.form-field-validation-state( warning, @brand-warning );
+.form-field-validation-state( error, @brand-danger );
+.form-field-validation-state( success, @brand-success );
 
 // Control groups
 // --------------
