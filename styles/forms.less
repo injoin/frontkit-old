@@ -213,9 +213,14 @@ textarea {
 
 // Control groups
 // --------------
+
+/*
+ * 1. Bring the focused input to the front, so the border will be shown
+ * 2. Leaves the spacing to the .input-group
+ */
 .input-group {
   display: table;
-  margin-bottom: @line-height-computed;
+  margin-bottom: @line-height-computed; /* 2 */
   
   &.col {
     float: none;
@@ -226,7 +231,12 @@ textarea {
   input,
   select {
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 0; /* 2 */
+    
+    &:focus {
+      position: relative;
+      z-index: 2; /* 1 */
+    }
   }
   
   .input-group-addon,
