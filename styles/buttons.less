@@ -2,7 +2,9 @@
 ---------------------------------------- */
 
 /*
- * 1. For when it's input.btn 
+ * 1. For when it's input.btn
+ * 2. For when it's a.btn
+ * 3. Make input.btn the same height as others
  */
 .btn {
   display: inline-block;
@@ -10,8 +12,10 @@
   margin-bottom: 0; /* 1 */
   padding: @padding-base-vertical @padding-base-horizontal;
   border: 1px solid @btn-border;
-  font-size: 1rem;
   line-height: @line-height-base;
+  font-size: 1rem;
+  text-decoration: none; /* 2 */
+  vertical-align: middle;
   border-radius: @border-radius-base;
   .box-shadow( ~"inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1)" );
   cursor: pointer;
@@ -23,6 +27,10 @@
 
   &:focus {
     .tab-focus();
+  }
+  
+  input& {
+    min-height: @input-height-base; /* 3 */
   }
 }
 
@@ -73,4 +81,11 @@ fieldset[ disabled ] .btn.btn-link {
   padding: @padding-small-vertical @padding-small-horizontal;
   font-size: @font-size-small;
   border-radius: @border-radius-small;
+}
+
+.btn.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
