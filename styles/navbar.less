@@ -1,0 +1,50 @@
+/* NAVBAR
+---------------------------------------- */
+
+.navbar {
+  position: relative;
+  min-height: @navbar-height;
+  margin-bottom: @line-height-computed;
+  padding-left: @grid-gutter-width / 2;
+  padding-right: @grid-gutter-width / 2;
+  border: 1px solid @navbar-border;
+  border-radius: @border-radius-base;
+  
+  .box-shadow( 0 0 5px 0 rgba( 0, 0, 0, 0.1 ) );
+  #gradient > .vertical( @navbar-bg, darken( @navbar-bg, 15% ) );
+  .clear-float();
+}
+
+// Navbar elements
+// ---------------
+.navbar-brand {
+  display: inline-block;
+  padding: ( ( @navbar-height - ( @font-size-large * @line-height-base ) ) / 2 ) 15px;
+  color: @navbar-brand-color;
+  font-size: @font-size-large;
+  .transition( color 0.1s linear );
+  
+  &, &:hover {
+    text-decoration: none;
+  }
+  
+  &:hover,
+  &:focus {
+    color: @navbar-brand-hover-color;
+  }
+}
+
+// Fixed navbar
+// ------------
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: @zindex-navbar-fixed;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.navbar-fixed-top    { top: 0; }
+.navbar-fixed-bottom { bottom: 0; }

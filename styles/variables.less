@@ -21,12 +21,19 @@
 
 // Scaffolding
 // -----------
-@body-bg:           #fff;
-@text-color:        @gray-dark;
+@body-bg:                 #fff;
+@text-color:              @gray-dark;
 
-// links
-@link-color:        @brand-primary;
-@link-color-hover:  darken( @link-color, 15% );
+// Links
+@link-color:              @brand-primary;
+@link-color-hover:        darken( @link-color, 15% );
+
+// Images
+@image-border-color:      fade( #000, 20% );
+
+// Z-Indexes
+// ---------
+@zindex-navbar-fixed:     1000;
 
 // Typography
 // ----------
@@ -39,9 +46,8 @@
 @font-weight-headings:    bold;
 
 @font-size-base:          14px;
-@font-size-large:         @font-size-base * 1.25;
-@font-size-small:         @font-size-base * 0.85;
-@font-size-mini:          @font-size-base * 0.75;
+@font-size-large:         ( @font-size-base * 1.25 );
+@font-size-small:         ( @font-size-base * 0.85 );
 
 @line-height-base:        ( 20 / 14 );
 @line-height-computed:    20px;
@@ -103,35 +109,43 @@
 
 // Icons
 // -----
-@font-path:               "../fonts";
-@icon-base-class:         icon;
-@icon-prefix:             icon-;
+@font-path:                 "../fonts";
+@icon-base-class:           icon;
+@icon-prefix:               icon-;
 
 // Tables
 // ------
-@table-bg:                @body-bg;
-@table-bg-accent:         @gray-lighter;
-@table-bg-hover:          @gray-lighter;
-@table-border-color:      darken( @gray-lighter, 10% );
+@table-bg:                  @body-bg;
+@table-bg-accent:           @gray-lighter;
+@table-bg-hover:            @gray-lighter;
+@table-border-color:        darken( @gray-lighter, 10% );
 
 // Navs
 // ----
-@nav-list-hover-bg:       darken( @gray-lighter, 3% );
-@nav-list-header:         @gray-light;
+@nav-list-hover-bg:         darken( @gray-lighter, 3% );
+@nav-list-header:           @gray-light;
+
+// Navbar
+// ------
+@navbar-bg:                 @brand-default;
+@navbar-border:             darken( @navbar-bg, 15% );
+@navbar-height:             45px;
+@navbar-brand-color:        @text-color;
+@navbar-brand-hover-color:  lighten( @text-color, 20% );
 
 // Wells
 // -----
-@well-bg:                 darken( @body-bg, 5% );
-@well-border-color:       darken( @well-bg, 5% );
+@well-bg:                   darken( @body-bg, 5% );
+@well-border-color:         darken( @well-bg, 5% );
 
 // Grid
 // ----
-@grid-columns:            12;
-@grid-gutter-width:       30px;
-@grid-float-breakpoint:   768px;
+@grid-columns:              12;
+@grid-gutter-width:         30px;
+@grid-float-breakpoint:     768px;
 
 // Responsive Utils
 // ----------------
-@screen-small:            768px;
-@screen-medium:           980px;
-@screen-large:            1200px;
+@screen-small:              768px;
+@screen-medium:             980px;
+@screen-large:              1200px;
