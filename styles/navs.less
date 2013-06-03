@@ -4,12 +4,23 @@
 .nav {
   list-style: none;
   margin-left: 0;
+
+  > li {
+    position: relative;
+    display: block;
+
+    > a {
+      position: relative;
+      display: block;
+      text-decoration: none;
+    }
+  }
 }
 
 .nav.nav-list {
   margin-bottom: @line-height-computed;
   padding: ( @line-height-computed / 2 ) 0;
-  
+
   > .nav-header {
     padding: 0 @line-height-computed;
     color: @nav-list-header;
@@ -17,17 +28,11 @@
     text-transform: uppercase;
   }
 
-  > li {
-    position: relative;
-    
-    > a {
-      display: block;
-      padding: 3px @line-height-computed;
-      text-decoration: none;
+  > li > a {
+    padding: 3px @line-height-computed;
 
-      &:hover {
-        background-color: @nav-list-hover-bg;
-      }
+    &:hover {
+      background-color: @nav-list-hover-bg;
     }
   }
 }

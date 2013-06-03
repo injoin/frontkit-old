@@ -49,8 +49,8 @@
 @font-size-large:         ( @font-size-base * 1.25 );
 @font-size-small:         ( @font-size-base * 0.85 );
 
-@line-height-base:        ( 20 / 14 );
 @line-height-computed:    20px;
+@line-height-base:        unit( @line-height-computed / @font-size-base );
 
 // Code
 // ----
@@ -130,8 +130,12 @@
 @navbar-bg:                 @brand-default;
 @navbar-border:             darken( @navbar-bg, 15% );
 @navbar-height:             45px;
+
 @navbar-brand-color:        @text-color;
 @navbar-brand-hover-color:  lighten( @text-color, 20% );
+
+@navbar-link:               mix( @gray-light, @gray );
+@navbar-link-hover:         @gray-darker;
 
 // Wells
 // -----
