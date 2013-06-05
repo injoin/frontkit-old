@@ -1,0 +1,10 @@
+{
+    "name": "frontkit",
+    "version": "0.0.0",
+    "main": "./styles/frontkit.less",
+    "dependencies": {},
+    "ignore": [
+        "**/.*",
+        "node_modules"
+    ]
+}
