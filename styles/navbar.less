@@ -41,18 +41,16 @@
   margin: 0 10px;
 }
 
-.navbar-nav {
-  > li {
-    float: left;
+.navbar-nav > li {
+  float: left;
 
-    > a {
-      padding: ( ( @navbar-height - @line-height-computed ) / 2 ) @padding-base-horizontal;
-      color: @navbar-link;
-      text-shadow: 0 1px 0 @navbar-bg;
+  > a {
+    padding: ( ( @navbar-height - @line-height-computed ) / 2 ) @padding-base-horizontal;
+    color: @navbar-link;
+    text-shadow: 0 1px 0 @navbar-bg;
 
-      &:hover {
-        color: @navbar-link-hover;
-      }
+    &:hover {
+      color: @navbar-link-hover;
     }
   }
 }
