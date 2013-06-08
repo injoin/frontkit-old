@@ -1,7 +1,12 @@
 {
 	"name": "frontkit",
 	"version": "0.0.0",
-	"dependencies": {},
+	"devDependencies": {
+		"grunt": "~0.4.x",
+		"grunt-contrib-concat": "0.3.x",
+		"grunt-contrib-less": "0.5.x",
+		"grunt-contrib-watch": "0.3.x"
+	},
 	"repository": {
 		"type": "git",
 		"url":  "https://github.com/injoin/frontkit.git"
