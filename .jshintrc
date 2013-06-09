@@ -1,0 +1,8 @@
+{
+	"browser": true,
+	"jquery": true,
+
+	"eqeqeq": true,
+	"eqnull": true,
+	"validthis": true
+}
