@@ -2,8 +2,18 @@
 ---------------------------------------- */
 
 .well {
+  margin-bottom: @line-height-computed;
+  padding: @padding-base-vertical @padding-base-horizontal;
   border: 1px solid @well-border-color;
   background-color: @well-bg;
   border-radius: @border-radius-base;
   .box-shadow( inset 0 1px 1px rgba( 0, 0, 0, .05 ) );
+}
+
+.well.well-large {
+  padding: @padding-large-vertical @padding-large-horizontal;
+}
+
+.well.well-small {
+  padding: @padding-small-vertical @padding-small-horizontal;
 }
