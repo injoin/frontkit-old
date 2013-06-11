@@ -53,6 +53,28 @@
         };
 	};
 
+    // Unregister an widget
+    $.frontkit.unregister = function( name ) {
+        if ( !$.frontkit.widgets[ name ] ) {
+            return false;
+        }
+
+        delete $.expr[ ":" ][ name.toLowerCase() ];
+        delete $.fn[ name ];
+        delete $.frontkit.widgets[ name ];
+
+        return true;
+    };
+
+    // Resets the Frontkit API widget status
+    $.frontkit.reset = function() {
+        $.each( $.frontkit.widgets, function( name ) {
+            $.frontkit.unregister( name );
+        });
+
+        frontkitWidgetId = 0;
+    };
+
 	// Extend an widget definition
 	$.frontkit.extend = function( name, obj ) {
 		var api = $.frontkit.widgets[ name ];
@@ -146,6 +168,8 @@
             event = $.Event( event || {} );
             event.type = ( this.name + type ).toLowerCase();
             event.target = this.element[ 0 ];
+            event.currentTarget = event.currentTarget || event.target;
+            event.preventDefault = event.preventDefault || $.noop;
 
             data = data || {};
             orig = event.originalEvent;
