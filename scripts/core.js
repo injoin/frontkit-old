@@ -26,25 +26,32 @@
 		$.frontkit.widgets[ name ] = widget;
 
 		$.fn[ name ] = function( arg ) {
-			var instance, api;
+			var instance, $el, instantiated;
+            var api = $.frontkit.widgets[ name ];
 
-			if ( typeof arg !== "string" ) {
-				api = $.frontkit.widgets[ name ];
+            return this.each(function() {
+                $el = $( this );
+                instance = $el.data( name );
+                instantiated = instance instanceof $.frontkit.Widget;
 
-				return this.each(function() {
-					instance = new Widget( api, this, arg );
-					$( this ).data( name, instance );
-				});
-			}
+                if ( typeof arg !== "string" ) {
+                    if ( instantiated ) {
+                        return;
+                    }
 
-			instance = $( this ).data( name );
-			if ( !( instance instanceof Widget ) ) {
-				throw new Error( "Cannot call widget methods prior to initialization." );
-			}
+                    instance = new $.frontkit.Widget( api, this, arg );
+                    $el.data( name, instance );
+                    return;
+                }
 
-			if ( options[ 0 ] !== "_" ) {
-				instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
-			}
+                if ( !instantiated ) {
+                    throw new Error( "Cannot call widget methods prior to initialization." );
+                }
+
+                if ( options[ 0 ] !== "_" ) {
+                    instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
+                }
+            });
 		};
 
         // Create a selector for the plugin
@@ -101,7 +108,7 @@
 
 	// The Widget class
 	// ----------------
-	function Widget( api, element, options ) {
+    $.frontkit.Widget = function( api, element, options ) {
 		$.extend( this, api );
 
 		// Applies proxies to this instance;
@@ -110,11 +117,12 @@
         this.eventNamespace = "." + api.name;
 		this.element = $( element );
 		this.initialize( options );
-	}
+	};
 
-	$.extend( Widget.prototype, {
+	$.extend( $.frontkit.Widget.prototype, {
 		initialize: function( options ) {
             log( "Initializing " + this.name + " widget" );
+            this.options = {};
 			this.option( options );
 
 			if ( $.isFunction( this._initialize ) ) {
@@ -126,6 +134,7 @@
 
 		destroy: function() {
             this._trigger( "destroy" );
+            this.element.removeData( this.name );
 		},
 
 		// Get or set one or more options into/from the widget instance
@@ -196,7 +205,7 @@
 	});
 
 	function proxy( object ) {
-		var prototype = Widget.prototype;
+		var prototype = $.frontkit.Widget.prototype;
 
 		$.each( object, function( prop, method ) {
 			if ( !$.isFunction( method ) || !$.isFunction( prototype[ prop ] ) ) {
