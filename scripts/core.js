@@ -94,7 +94,7 @@
 	$.frontkit.widgets = {};
 
 	// Determine whether we're on FrontKit debug mode
-	$.frontkit.debug = true;
+	$.frontkit.debug = false;
 
 	// Function to write debug messages
 	$.frontkit.log = log;
