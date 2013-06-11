@@ -2,6 +2,12 @@
   position: fixed;
 }
 
-.affix-inactive {
+.affix.affix-inactive {
   position: static;
+}
+
+@media screen and ( max-width: @grid-float-breakpoint ) {
+  .affix.affix-no-mobile {
+    position: static;
+  }
 }
