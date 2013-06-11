@@ -2,6 +2,7 @@
 	"browser": true,
 	"jquery": true,
 
+    "maxlen": 100,
 	"eqeqeq": true,
 	"eqnull": true,
 	"validthis": true
