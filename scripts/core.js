@@ -1,32 +1,32 @@
 (function( $, undefined ) {
-	"use strict";
+    "use strict";
 
-	var frontkitWidgetId = 0;
+    var frontkitWidgetId = 0;
 
-	function log( message ) {
-		if ( console && console.log && $.frontkit.debug ) {
-			console.log( "[FrontKit " + $.frontkit.version + "] " + message );
-		}
-	}
+    function log( message ) {
+        if ( console && console.log && $.frontkit.debug ) {
+            console.log( "[FrontKit " + $.frontkit.version + "] " + message );
+        }
+    }
 
-	$.frontkit = function( name, widget ) {
-		frontkitWidgetId++;
+    $.frontkit = function( name, widget ) {
+        frontkitWidgetId++;
 
-		if ( typeof name !== "string" ) {
-			widget = name;
-			name = "frontkitWidget" + frontkitWidgetId;
-		}
+        if ( typeof name !== "string" ) {
+            widget = name;
+            name = "frontkitWidget" + frontkitWidgetId;
+        }
 
-		if ( !$.isPlainObject( widget ) ) {
-			widget = {};
-		}
+        if ( !$.isPlainObject( widget ) ) {
+            widget = {};
+        }
 
-		widget = $.extend( {}, widget );
-		widget.name = name;
-		$.frontkit.widgets[ name ] = widget;
+        widget = $.extend( {}, widget );
+        widget.name = name;
+        $.frontkit.widgets[ name ] = widget;
 
-		$.fn[ name ] = function( arg ) {
-			var instance, $el, instantiated;
+        $.fn[ name ] = function( arg ) {
+            var instance, $el, instantiated;
             var api = $.frontkit.widgets[ name ];
 
             return this.each(function() {
@@ -35,6 +35,7 @@
                 instantiated = instance instanceof $.frontkit.Widget;
 
                 if ( typeof arg !== "string" ) {
+                    // Don't create another instance over this one
                     if ( instantiated ) {
                         return;
                     }
@@ -52,13 +53,13 @@
                     instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
                 }
             });
-		};
+        };
 
         // Create a selector for the plugin
         $.expr[ ":" ][ name.toLowerCase() ] = function( elem ) {
             return !!$.data( elem, name );
         };
-	};
+    };
 
     // Unregister an widget
     $.frontkit.unregister = function( name ) {
@@ -82,89 +83,89 @@
         frontkitWidgetId = 0;
     };
 
-	// Extend an widget definition
-	$.frontkit.extend = function( name, obj ) {
-		var api = $.frontkit.widgets[ name ];
+    // Extend an widget definition
+    $.frontkit.extend = function( name, obj ) {
+        var api = $.frontkit.widgets[ name ];
 
-		if ( !$.isPlainObject( api ) ) {
-			throw new TypeError( "The widget name specified does not exist." );
-		}
+        if ( !$.isPlainObject( api ) ) {
+            throw new TypeError( "The widget name specified does not exist." );
+        }
 
-		obj = $.makeArray( arguments ).slice( 1 );
-		obj.unshift( api );
-		$.extend.apply( null, obj );
-	};
+        obj = $.makeArray( arguments ).slice( 1 );
+        obj.unshift( api );
+        $.extend.apply( null, obj );
+    };
 
-	$.frontkit.version = "@VERSION";
+    $.frontkit.version = "@VERSION";
 
-	// Stores APIs for each widget
-	$.frontkit.widgets = {};
+    // Stores APIs for each widget
+    $.frontkit.widgets = {};
 
-	// Determine whether we're on FrontKit debug mode
-	$.frontkit.debug = false;
+    // Determine whether we're on FrontKit debug mode
+    $.frontkit.debug = false;
 
-	// Function to write debug messages
-	$.frontkit.log = log;
+    // Function to write debug messages
+    $.frontkit.log = log;
 
-	// The Widget class
-	// ----------------
-    $.frontkit.Widget = function( api, element, options ) {
-		$.extend( this, api );
+        // The Widget class
+        // ----------------
+        $.frontkit.Widget = function( api, element, options ) {
+            $.extend( this, api );
 
-		// Applies proxies to this instance;
-		proxy( this );
+            // Applies proxies to this instance;
+            proxy( this );
 
-        this.eventNamespace = "." + api.name;
-		this.element = $( element );
-		this.initialize( options );
-	};
+            this.eventNamespace = "." + api.name;
+            this.element = $( element );
+            this.initialize( options );
+        };
 
-	$.extend( $.frontkit.Widget.prototype, {
-		initialize: function( options ) {
+        $.extend( $.frontkit.Widget.prototype, {
+        initialize: function( options ) {
             log( "Initializing " + this.name + " widget" );
             this.options = {};
-			this.option( options );
+            this.option( options );
 
-			if ( $.isFunction( this._initialize ) ) {
-				this._initialize();
-			}
+            if ( $.isFunction( this._initialize ) ) {
+                this._initialize();
+            }
 
             this._trigger( "create" );
-		},
+        },
 
-		destroy: function() {
+        destroy: function() {
             this._trigger( "destroy" );
             this.element.removeData( this.name );
-		},
+        },
 
-		// Get or set one or more options into/from the widget instance
-		option: function( name, value ) {
-			var widget = this,
+        // Get or set one or more options into/from the widget instance
+        option: function( name, value ) {
+            var widget = this,
                 setOption = this._setOption;
 
-			if ( typeof name === "string" ) {
-				if ( value === undefined ) {
-					return this.options[ name ];
-				}
+            if ( typeof name === "string" ) {
+                if ( value === undefined ) {
+                    return this.options[ name ];
+                }
 
-				setOption( name, value );
-			} else if ( $.isPlainObject( name ) ) {
-				$.each( name, function( key, val ) {
-					setOption.call( widget, key, val );
-				});
-			} else if ( name === undefined ) {
+                setOption( name, value );
+            } else if ( $.isPlainObject( name ) ) {
+                $.each( name, function( key, val ) {
+                    setOption.call( widget, key, val );
+                });
+            } else if ( name === undefined ) {
                 return this.options;
             } else {
-				log( "Invalid argument passed to option(): " + $.type( name ) );
-			}
+                log( "Invalid argument passed to option(): " + $.type( name ) );
+            }
 
-			return this;
-		},
+            return this;
+        },
 
-		_setOption: function( name, value ) {
-			this.options[ name ] = value;
-			log( "Setted option '" + name + "' as " + JSON.stringify( value ));
-		},
+        _setOption: function( name, value ) {
+            this.options[ name ] = value;
+            log( "Setted option '" + name + "' as " + JSON.stringify( value ));
+        },
 
         _trigger: function( type, event, data ) {
             var orig, prop;
@@ -202,24 +203,24 @@
 
             log( "Triggered event '" + event.type + "'" );
         }
-	});
+    });
 
-	function proxy( object ) {
-		var prototype = $.frontkit.Widget.prototype;
+    function proxy( object ) {
+        var prototype = $.frontkit.Widget.prototype;
 
-		$.each( object, function( prop, method ) {
-			if ( !$.isFunction( method ) || !$.isFunction( prototype[ prop ] ) ) {
-				return;
-			}
+        $.each( object, function( prop, method ) {
+            if ( !$.isFunction( method ) || !$.isFunction( prototype[ prop ] ) ) {
+                return;
+            }
 
-			object[ prop ] = function() {
+            object[ prop ] = function() {
                 if ( prototype[ prop ] != null ) {
-					this.super = $.proxy( prototype[ prop ], this );
-				}
+                    this.super = $.proxy( prototype[ prop ], this );
+                }
 
-				method.apply( this, arguments );
-			};
-		});
-	}
+                method.apply( this, arguments );
+            };
+        });
+    }
 
 })( jQuery );
