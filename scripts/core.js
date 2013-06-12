@@ -10,13 +10,16 @@
     }
 
     $.frontkit = function( name, widget ) {
+        // Update our widget unique ID control
         frontkitWidgetId++;
 
+        // Generate default name if it wasn't passed
         if ( typeof name !== "string" ) {
             widget = name;
             name = "frontkitWidget" + frontkitWidgetId;
         }
 
+        // Empty API if it wasn't passed
         if ( !$.isPlainObject( widget ) ) {
             widget = {};
         }
@@ -30,6 +33,7 @@
             var $el = this;
             var args = $.makeArray( arguments ).slice( 1 );
 
+            // If not calling a method
             if ( typeof arg !== "string" ) {
                 api = $.frontkit.widgets[ name ];
 
@@ -44,10 +48,12 @@
                 });
             }
 
+            // Don't allow to call methods if instance is uninitialized.
             if ( !this.is( ":" + name ) ) {
                 throw new Error( "Cannot call widget methods prior to initialization." );
             }
 
+            // Also, are we accessing an public, callable thing?
             instance = $el.data( name );
             if ( !$.isFunction( instance[ arg ] ) || arg[ 0 ] === "_" ) {
                 throw new TypeError(
@@ -66,10 +72,13 @@
             var data = $.data( elem, name );
             return !!data && data instanceof $.frontkit.Widget;
         };
+
+        log( "Defined new widget " + name );
     };
 
     // Unregister an widget
     $.frontkit.unregister = function( name ) {
+        // We can't unregister something that doesn't exists :)
         if ( !$.frontkit.widgets[ name ] ) {
             return false;
         }
@@ -83,10 +92,12 @@
 
     // Resets the Frontkit API widget status
     $.frontkit.reset = function() {
+        // This is just about loop thru all widgets and calling unregister() on them
         $.each( $.frontkit.widgets, function( name ) {
             $.frontkit.unregister( name );
         });
 
+        // In this case we also reset the widgets ID
         frontkitWidgetId = 0;
     };
 
@@ -94,6 +105,7 @@
     $.frontkit.extend = function( name, obj ) {
         var api = $.frontkit.widgets[ name ];
 
+        // What we're going to extend exist?
         if ( !$.isPlainObject( api ) ) {
             throw new TypeError( "The widget name specified does not exist." );
         }
@@ -114,20 +126,20 @@
     // Function to write debug messages
     $.frontkit.log = log;
 
-        // The Widget class
-        // ----------------
-        $.frontkit.Widget = function( api, element, options ) {
-            $.extend( this, api );
+    // The Widget class
+    // ----------------
+    $.frontkit.Widget = function( api, element, options ) {
+        $.extend( this, api );
 
-            // Applies proxies to this instance;
-            proxy( this );
+        // Applies proxies to this instance
+        proxy( this );
 
-            this.eventNamespace = "." + api.name;
-            this.element = $( element );
-            this.initialize( options );
-        };
+        this.eventNamespace = "." + api.name;
+        this.element = $( element );
+        this.initialize( options );
+    };
 
-        $.extend( $.frontkit.Widget.prototype, {
+    $.extend( $.frontkit.Widget.prototype, {
         initialize: function( options ) {
             log( "Initializing " + this.name + " widget" );
             this.options = {};
@@ -200,6 +212,7 @@
 
             this.element.trigger( event, data );
 
+            // If the instance option is a callback, we can call it!
             if ( $.isFunction( this.options[ type ] ) ) {
                 this.options[ type ].call(
                     this.element[ 0 ],
