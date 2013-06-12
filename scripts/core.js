@@ -49,7 +49,12 @@
                     throw new Error( "Cannot call widget methods prior to initialization." );
                 }
 
-                if ( options[ 0 ] !== "_" ) {
+                if ( !$.isFunction( instance[ arg ] ) ) {
+                    throw new TypeError(
+                        "Method named " + arg +
+                        " is not defined for widget " + name
+                    );
+                } else if ( options[ 0 ] !== "_" ) {
                     instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
                 }
             });
