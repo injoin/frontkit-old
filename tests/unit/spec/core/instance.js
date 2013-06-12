@@ -69,18 +69,15 @@
     test( "Options", function() {
         expect( 4 );
 
-        var options;
-        var $widgets = $( ".has-widget" ).eq( 0 );
-
-        $widgets.widget();
-        options = $widgets.data( "widget" ).options;
+        var $widget = $( "#widget-test1" ).widget();
+        var options = $widget.data( "widget" ).options;
 
         // Set - Single property
-        $widgets.widget( "option", "test", 123 );
+        $widget.widget( "option", "test", 123 );
         strictEqual( options.test, 123, "set a single property" );
 
         // Set - Multi property
-        $widgets.widget( "option", {
+        $widget.widget( "option", {
             a: true,
             b: "okay"
         });
@@ -90,12 +87,23 @@
         );
 
         // Get - Single property
-        strictEqual( $widgets.widget( "option", "a" ), true, "get a single property" );
+        strictEqual( $widget.widget( "option", "a" ), true, "get a single property" );
 
         // Get - Multi property
         ok(
-            sinon.match({ a: true, b: "okay", test: 123 }).test( $widgets.widget( "option" ) ),
+            sinon.match({ a: true, b: "okay", test: 123 }).test( $widget.widget( "option" ) ),
             "get multiple properties at once"
+        );
+    });
+
+    test( "Destroy", function() {
+        expect( 1 );
+
+        var $widget = $( "#widget-test1" ).widget().widget( "destroy" );
+        strictEqual(
+            $widget.data( "widget" ),
+            undefined,
+            "removes widget instance from the element data"
         );
     });
 

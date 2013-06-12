@@ -26,7 +26,7 @@
         $.frontkit.widgets[ name ] = widget;
 
         $.fn[ name ] = function( arg ) {
-            var instance, api;
+            var instance, api, ret;
             var $el = this;
             var args = $.makeArray( arguments ).slice( 1 );
 
@@ -56,7 +56,9 @@
                 );
             }
 
-            return instance[ arg ].apply( instance, args );
+            // If we didn't had a return, it'll be given the element for chaining
+            ret = instance[ arg ].apply( instance, args );
+            return ret === undefined ? $el : ret;
         };
 
         // Create a selector for the plugin
