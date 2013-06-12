@@ -32,34 +32,69 @@
     });
 
     test( "instance access", function() {
-        expect( 3 );
+        expect( 4 );
 
-        var spy = sinon.spy( $.fn, "widget" );
+        var spy1, spy2;
         var $widgets = $( ".has-widget" );
+        spy1 = sinon.spy( $.fn, "widget" );
 
         // If trying to access before instantiation
         try {
             $widgets.widget( "test" );
         } catch( e ) {}
 
-        ok( spy.alwaysThrew( "Error" ), "throws if accessing method before instantiation" );
+        ok( spy1.alwaysThrew( "Error" ), "throws if accessing method before instantiation" );
 
         // If trying to access undefined method
         $widgets.widget();
         try {
             $widgets.widget( "test" );
         } catch ( e ) {}
-        ok( spy.getCall( 2 ).threw( "TypeError" ), "throws if accessing undefined method" );
+        ok( spy1.getCall( 2 ).threw( "TypeError" ), "throws if accessing undefined method" );
 
-        // Reset the current spy and create another one
-        spy.restore();
-        spy = sinon.spy( $.frontkit.widgets.widget, "_privateMethod" );
+        spy2 = sinon.spy( $.frontkit.widgets.widget, "_privateMethod" );
 
         // If trying to access private method
-        $widgets.widget( "_privateMethod" );
-        strictEqual( spy.callCount, 0, "doesn't call methods prefixed with _ - private" );
+        try {
+            $widgets.widget( "_privateMethod" );
+        } catch ( e ) {}
+        ok( spy1.getCall( 3 ).threw( "TypeError" ), "throws if tried to call private methods" );
+        strictEqual( spy2.callCount, 0, "doesn't call methods prefixed with _ - private" );
 
-        spy.restore();
+        // Reset spies
+        spy1.restore();
+        spy2.restore();
+    });
+
+    test( "Options", function() {
+        var options;
+        var $widgets = $( ".has-widget" ).eq( 0 );
+
+        $widgets.widget();
+        options = $widgets.data( "widget" ).options;
+
+        // Set - Single property
+        $widgets.widget( "option", "test", 123 );
+        strictEqual( options.test, 123, "set a single property" );
+
+        // Set - Multi property
+        $widgets.widget( "option", {
+            a: true,
+            b: "okay"
+        });
+        ok(
+            sinon.match({ a: true, b: "okay" }).test( options ),
+            "set multiple properties at once"
+        );
+
+        // Get - Single property
+        strictEqual( $widgets.widget( "option", "a" ), true, "get a single property" );
+
+        // Get - Multi property
+        ok(
+            sinon.match({ a: true, b: "okay", test: 123 }).test( $widgets.widget( "option" ) ),
+            "get multiple properties at once"
+        );
     });
 
 })( jQuery, sinon );

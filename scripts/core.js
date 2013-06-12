@@ -26,43 +26,43 @@
         $.frontkit.widgets[ name ] = widget;
 
         $.fn[ name ] = function( arg ) {
-            var instance, $el, instantiated;
-            var api = $.frontkit.widgets[ name ];
+            var instance, api;
+            var $el = this;
+            var args = $.makeArray( arguments ).slice( 1 );
 
-            return this.each(function() {
-                $el = $( this );
-                instance = $el.data( name );
-                instantiated = instance instanceof $.frontkit.Widget;
+            if ( typeof arg !== "string" ) {
+                api = $.frontkit.widgets[ name ];
 
-                if ( typeof arg !== "string" ) {
+                return this.each(function( i ) {
                     // Don't create another instance over this one
-                    if ( instantiated ) {
+                    if ( $el.eq( i ).is( ":" + name ) ) {
                         return;
                     }
 
                     instance = new $.frontkit.Widget( api, this, arg );
-                    $el.data( name, instance );
-                    return;
-                }
+                    $el.eq( i ).data( name, instance );
+                });
+            }
 
-                if ( !instantiated ) {
-                    throw new Error( "Cannot call widget methods prior to initialization." );
-                }
+            if ( !this.is( ":" + name ) ) {
+                throw new Error( "Cannot call widget methods prior to initialization." );
+            }
 
-                if ( !$.isFunction( instance[ arg ] ) ) {
-                    throw new TypeError(
-                        "Method named " + arg +
-                        " is not defined for widget " + name
-                    );
-                } else if ( arg[ 0 ] !== "_" ) {
-                    instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
-                }
-            });
+            instance = $el.data( name );
+            if ( !$.isFunction( instance[ arg ] ) || arg[ 0 ] === "_" ) {
+                throw new TypeError(
+                    "Method named " + arg +
+                    " is not defined for widget " + name
+                );
+            }
+
+            return instance[ arg ].apply( instance, args );
         };
 
         // Create a selector for the plugin
         $.expr[ ":" ][ name.toLowerCase() ] = function( elem ) {
-            return !!$.data( elem, name );
+            var data = $.data( elem, name );
+            return !!data && data instanceof $.frontkit.Widget;
         };
     };
 
@@ -153,7 +153,7 @@
                     return this.options[ name ];
                 }
 
-                setOption( name, value );
+                setOption.call( this, name, value );
             } else if ( $.isPlainObject( name ) ) {
                 $.each( name, function( key, val ) {
                     setOption.call( widget, key, val );
@@ -223,7 +223,7 @@
                     this.super = $.proxy( prototype[ prop ], this );
                 }
 
-                method.apply( this, arguments );
+                return method.apply( this, arguments );
             };
         });
     }
