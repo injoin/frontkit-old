@@ -54,7 +54,7 @@
                         "Method named " + arg +
                         " is not defined for widget " + name
                     );
-                } else if ( options[ 0 ] !== "_" ) {
+                } else if ( arg[ 0 ] !== "_" ) {
                     instance[ arg ].apply( instance, $.makeArray( arguments ).slice( 1 ) );
                 }
             });

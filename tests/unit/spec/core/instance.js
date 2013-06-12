@@ -3,7 +3,9 @@
 
     module( "Widget - Instance", {
         setup: function() {
-            $.frontkit( "widget" );
+            $.frontkit( "widget", {
+                _privateMethod: function() {}
+            });
         },
         teardown: function() {
             $.frontkit.unregister( "widget" );
@@ -30,7 +32,7 @@
     });
 
     test( "instance access", function() {
-        expect( 2 );
+        expect( 3 );
 
         var spy = sinon.spy( $.fn, "widget" );
         var $widgets = $( ".has-widget" );
@@ -46,10 +48,16 @@
         $widgets.widget();
         try {
             $widgets.widget( "test" );
-        } catch ( e ) {
-            console.log( spy.exceptions );
-        }
+        } catch ( e ) {}
         ok( spy.getCall( 2 ).threw( "TypeError" ), "throws if accessing undefined method" );
+
+        // Reset the current spy and create another one
+        spy.restore();
+        spy = sinon.spy( $.frontkit.widgets.widget, "_privateMethod" );
+
+        // If trying to access private method
+        $widgets.widget( "_privateMethod" );
+        strictEqual( spy.callCount, 0, "doesn't call methods prefixed with _ - private" );
 
         spy.restore();
     });
