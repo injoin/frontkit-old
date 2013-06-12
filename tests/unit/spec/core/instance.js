@@ -12,7 +12,7 @@
         }
     });
 
-    test( "instantiation", function() {
+    test( "Instantiation", function() {
         expect( 4 );
 
         var spy = sinon.spy( $.frontkit, "Widget" );
@@ -31,7 +31,7 @@
         spy.restore();
     });
 
-    test( "instance access", function() {
+    test( "Instance access", function() {
         expect( 4 );
 
         var spy1, spy2;
@@ -67,6 +67,8 @@
     });
 
     test( "Options", function() {
+        expect( 4 );
+
         var options;
         var $widgets = $( ".has-widget" ).eq( 0 );
 
