@@ -19,7 +19,7 @@
 
         _initialize: function() {
             this.top = this.element.offset().top;
-            this.element.addClass( "affix" );
+            this.element.addClass( "affix affix-inactive" );
 
             if ( !this.options.mobile ) {
                 this.element.addClass( "affix-no-mobile" );

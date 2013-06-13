@@ -1,4 +1,4 @@
-(function( $ ) {
+(function( $, sinon ) {
     "use strict";
 
     module( "General", {
@@ -43,4 +43,39 @@
         this.affix.affix();
     });
 
-})( jQuery );
+    test( "Positioning", function() {
+        expect( 3 );
+
+        var stub = sinon.stub( $.fn, "scrollTop" );
+
+        this.instance.top = 100;
+        this.instance.options.offset = 40;
+        this.instance.options.position = 30;
+
+        // Not enough scrolling
+        stub.returns( 60 );
+        $( window ).trigger( "scroll" );
+
+        ok(
+            this.affix.hasClass( "affix-inactive" ),
+            "does not touch the positioning if not enough scrolling"
+        );
+
+        // Enough scrolling
+        stub.returns( 80 );
+        $( window ).trigger( "scroll" );
+
+        ok(
+            !this.affix.hasClass( "affix-inactive" ),
+            "removes affix-inactive class when enough scrolling"
+        );
+
+        strictEqual(
+            parseInt( this.affix.css( "top" ), 10 ), 30,
+            "set the correct positioning when enough scrolling"
+        );
+
+        stub.restore();
+    });
+
+})( jQuery, sinon );
