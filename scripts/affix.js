@@ -33,6 +33,8 @@
         _setOption: function( name, value ) {
             if ( name === "offset" || name === "position" ) {
                 value = parseFloat( value );
+            } else if ( name === "mobile" ) {
+                this.element.toggleClass( "affix-no-mobile", !value );
             }
 
             this.super( name, value );
@@ -70,6 +72,8 @@
         _destroy: function() {
             var index = instances.indexOf( this );
             instances.splice( index, 1 );
+
+            this.element.removeClass( "affix affix-no-mobile affix-inactive" );
         }
     });
 
