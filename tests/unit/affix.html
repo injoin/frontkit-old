@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Frontkit Unit Tests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="lib/qunit.css">
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture">
+            <div id="test1" class="has-affix"></div>
+            <div id="test2" class="has-affix"></div>
+        </div>
+
+        <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+        <![endif]-->
+        <!--[if gte IE 9> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!-- <![endif]-->
+        <script src="lib/qunit.js"></script>
+        <script src="lib/sinon.js"></script>
+
+        <!-- Our stuff -->
+        <script src="../../scripts/core.js"></script>
+        <script src="../../scripts/affix.js"></script>
+
+        <!-- Specs -->
+        <script src="spec/affix/options.js"></script>
+    </body>
+</html>

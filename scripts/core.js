@@ -153,8 +153,14 @@
         },
 
         destroy: function() {
-            this._trigger( "destroy" );
+            // Actually destroying the widget is in the following lines
+            if ( $.isFunction( this._destroy ) ) {
+                this._destroy();
+            }
             this.element.removeData( this.name );
+
+            // Event triggering
+            this._trigger( "destroy" );
         },
 
         // Get or set one or more options into/from the widget instance

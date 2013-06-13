@@ -2,7 +2,7 @@
     "use strict";
 
     var $window = $( window );
-    var $instances = $();
+    var instances = [];
 
     $.frontkit( "affix", {
         top: 0,
@@ -25,7 +25,9 @@
                 this.element.addClass( "affix-no-mobile" );
             }
 
-            $instances = $instances.add( this.element );
+            // Keep a cache of this instance, so when window event occurs,
+            // we don't need to search the whole page again
+            instances.push( this );
         },
 
         _setOption: function( name, value ) {
@@ -63,15 +65,22 @@
                     });
                 }
             }
+        },
+
+        _destroy: function() {
+            var index = instances.indexOf( this );
+            instances.splice( index, 1 );
         }
     });
 
-    $window.on( "scroll.affix", function() {
+    $window.data( "affixInstances", instances ).on( "scroll.affix", function() {
         var scrollTop = $window.scrollTop();
+        var i = 0;
+        var len = instances.length;
 
-        $instances.each(function() {
-            $( this ).data( "affix" )._positionElement( scrollTop );
-        });
+        for ( ; i < len; i++ ) {
+            instances[ i ]._positionElement( scrollTop );
+        }
     });
 
 })( jQuery, window );
