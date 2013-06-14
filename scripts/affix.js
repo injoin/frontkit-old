@@ -21,20 +21,20 @@
             this.top = this.element.offset().top;
             this.element.addClass( "affix affix-inactive" );
 
-            if ( !this.options.mobile ) {
-                this.element.addClass( "affix-no-mobile" );
-            }
-
             // Keep a cache of this instance, so when window event occurs,
             // we don't need to search the whole page again
             instances.push( this );
+        },
+
+        _setMobile: function( value ) {
+            this.element.toggleClass( "affix-no-mobile", !value );
         },
 
         _setOption: function( name, value ) {
             if ( name === "offset" || name === "position" ) {
                 value = parseFloat( value );
             } else if ( name === "mobile" ) {
-                this.element.toggleClass( "affix-no-mobile", !value );
+                this._setMobile( value );
             }
 
             this.super( name, value );

@@ -52,6 +52,9 @@
         this.instance.options.offset = 40;
         this.instance.options.position = 30;
 
+        // We use this here because of PhantomJS
+        this.instance._setMobile( true );
+
         // Not enough scrolling
         stub.returns( 60 );
         $( window ).trigger( "scroll" );

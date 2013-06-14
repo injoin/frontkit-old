@@ -6,8 +6,12 @@ module.exports = exports = function( grunt ) {
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-concat");
+	grunt.loadNpmTasks("grunt-contrib-qunit");
+	grunt.loadNpmTasks("grunt-contrib-jshint");
 
-	grunt.registerTask( "default", [ "less", "concat" ] );
+    grunt.registerTask( "styles", [ "less" ] );
+    grunt.registerTask( "scripts", [ "jshint:dev", "qunit:dev", "concat:dev" ] );
+	grunt.registerTask( "default", [ "styles", "scripts" ] );
 };
 
 exports.tasks = {
@@ -21,6 +25,22 @@ exports.tasks = {
 			tasks: [ "concat" ]
 		}
 	},
+    jshint: {
+        dev: {
+            options: {
+                jshintrc: ".jshintrc"
+            },
+            files: {
+                src: [ "scripts/*.js" ]
+            }
+        }
+    },
+    qunit: {
+        dev: [
+            "tests/unit/core.html",
+            "tests/unit/affix.html"
+        ]
+    },
 	concat: {
 		dev: {
 			src: [ "scripts/core.js", "scripts/*.js" ],
