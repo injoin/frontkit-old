@@ -159,6 +159,7 @@ input[ type="radio" ] {
   min-height: @line-height-computed;
   padding-left: 20px;
   margin-bottom: ( @line-height-computed / 2 );
+  vertical-align: middle;
 
   > label {
     display: inline;
@@ -201,6 +202,23 @@ textarea {
   fieldset[ disabled ] & {
     cursor: not-allowed;
     background-color: @input-disabled-bg;
+  }
+}
+
+// Input help text
+// ---------------
+.input-help {
+  display: block;
+  margin-top: ( @line-height-computed / 4 );
+  margin-bottom: ( @line-height-computed / 2 );
+  color: lighten( @text-color, 25% );
+}
+
+input,
+select,
+textarea {
+  + .input-help {
+    margin-top: -( @line-height-computed / 4 );
   }
 }
 
