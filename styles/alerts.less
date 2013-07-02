@@ -1,0 +1,50 @@
+/* ALERTS
+---------------------------------------- */
+
+.alert {
+  margin-bottom: @line-height-computed;
+  padding: @padding-base-vertical @padding-base-horizontal;
+  border: 1px solid transparent;
+  border-radius: @border-radius-base;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+
+  > .close {
+    float: right;
+    color: inherit;
+  }
+}
+
+// Contextual alternatives
+// -----------------------
+.alert.alert-warning {
+  border-color: @alert-warning-border;
+  color: @alert-warning-color;
+  background-color: @alert-warning-bg;
+}
+
+.alert.alert-success {
+  border-color: @alert-success-border;
+  color: @alert-success-color;
+  background-color: @alert-success-bg;
+}
+
+.alert.alert-error {
+  border-color: @alert-error-border;
+  color: @alert-error-color;
+  background-color: @alert-error-bg;
+}
+
+.alert.alert-info {
+  border-color: @alert-info-border;
+  color: @alert-info-color;
+  background-color: @alert-info-bg;
+}
+
+// Sizing options
+// --------------
+.alert.alert-large {
+  padding: @padding-large-vertical @padding-large-horizontal;
+}

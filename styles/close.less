@@ -1,0 +1,33 @@
+/* CLOSE BUTTON
+---------------------------------------- */
+
+/**
+ * 1. Override for when the close icon is a link
+ */
+.close {
+  line-height: 1;
+  color: #000;
+  font-size: ( @font-size-base * 1.5 );
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+  .opacity( .2 );
+  .transition( opacity .1s linear );
+
+  &:hover,
+  &:focus {
+    color: #000; /* 1 */
+    text-decoration: none;
+    cursor: pointer;
+    .opacity( .5 );
+  }
+}
+
+/**
+ * Overrides for when using with a button
+ */
+button.close {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
