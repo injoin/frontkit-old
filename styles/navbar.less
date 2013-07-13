@@ -11,7 +11,7 @@
   border-radius: @border-radius-base;
 
   .box-shadow( 0 0 5px 0 rgba( 0, 0, 0, 0.1 ) );
-  #gradient > .vertical( @navbar-bg, darken( @navbar-bg, 15% ) );
+  #gradient > .vertical( @navbar-bg, darken( @navbar-bg, 5% ) );
   .clear-float();
 }
 
@@ -53,6 +53,11 @@
       color: @navbar-link-hover;
     }
   }
+}
+
+// Navbar text
+.navbar-text {
+  padding: ( ( @navbar-height - @line-height-computed ) / 2 );
 }
 
 // Fixed navbar
