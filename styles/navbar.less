@@ -53,6 +53,15 @@
       color: @navbar-link-hover;
     }
   }
+
+  &.active > a {
+    background: darken( @navbar-bg, 10% );
+    .box-shadow( inset 0 3px 8px rgba( 0, 0, 0, .15 ) );
+
+    &:hover {
+      color: @navbar-link;
+    }
+  }
 }
 
 // Navbar text
