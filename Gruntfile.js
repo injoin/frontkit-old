@@ -8,9 +8,10 @@ module.exports = exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-concat" );
     grunt.loadNpmTasks( "grunt-contrib-qunit" );
     grunt.loadNpmTasks( "grunt-contrib-jshint" );
+    grunt.loadNpmTasks( "grunt-jscs-checker" );
 
     grunt.registerTask( "styles", [ "less" ] );
-    grunt.registerTask( "scripts", [ "jshint:dev", "qunit:dev", "concat:dev" ] );
+    grunt.registerTask( "scripts", [ "jshint:dev", "jscs:dev", "qunit:dev", "concat:dev" ] );
     grunt.registerTask( "default", [ "styles", "scripts" ] );
 };
 
@@ -40,6 +41,9 @@ exports.tasks = {
             "tests/unit/core.html",
             "tests/unit/affix.html"
         ]
+    },
+    jscs: {
+        dev: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
     },
     concat: {
         dev: {

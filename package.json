@@ -1,16 +1,17 @@
 {
-	"name": "frontkit",
-	"version": "0.0.0",
-	"devDependencies": {
-		"grunt": "~0.4.x",
-		"grunt-contrib-concat": "0.3.x",
-		"grunt-contrib-less": "0.5.x",
-		"grunt-contrib-watch": "0.3.x",
+    "name": "frontkit",
+    "version": "0.0.0",
+    "devDependencies": {
+        "grunt": "~0.4.x",
+        "grunt-contrib-concat": "0.3.x",
+        "grunt-contrib-less": "0.5.x",
+        "grunt-contrib-watch": "0.3.x",
         "grunt-contrib-qunit": "0.2.x",
-        "grunt-contrib-jshint": "0.6.x"
-	},
-	"repository": {
-		"type": "git",
-		"url":  "https://github.com/injoin/frontkit.git"
-	}
+        "grunt-contrib-jshint": "0.6.x",
+        "grunt-jscs-checker": ">=0.1.2"
+    },
+    "repository": {
+        "type": "git",
+        "url":  "https://github.com/injoin/frontkit.git"
+    }
 }
