@@ -17,6 +17,8 @@
   }
 }
 
+// Nav List
+// --------
 .nav.nav-list {
   margin-bottom: @line-height-computed;
   padding: ( @line-height-computed / 2 ) 0;
@@ -30,9 +32,32 @@
 
   > li > a {
     padding: 3px @line-height-computed;
+  }
 
-    &:hover {
-      background-color: @nav-list-hover-bg;
+  > li.active > a,
+  > li > a:hover {
+    background-color: @nav-list-hover-bg;
+  }
+}
+
+// Nav Subnav
+// ----------
+.nav.nav-sub {
+  > .nav-header { font-weight: bold; }
+
+  > li {
+    display: inline-block;
+    margin: 0 3px;
+
+    > a {
+      padding: 3px 5px;
+      border-radius: @border-radius-base;
+    }
+
+    &.active > a,
+    > a:hover {
+      color: @nav-sub-hover-text;
+      background-color: @nav-sub-hover-bg;
     }
   }
 }
