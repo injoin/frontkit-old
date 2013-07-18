@@ -4,7 +4,13 @@
     module( "Widget - Instance", {
         setup: function() {
             $.frontkit( "widget", {
-                _privateMethod: function() {}
+                _privateMethod: function() {},
+                eventBind: function() {
+                    return this._on.apply( this, arguments );
+                },
+                eventUnbind: function() {
+                    return this._off.apply( this, arguments );
+                }
             });
         },
         teardown: function() {
@@ -94,6 +100,56 @@
             sinon.match({ a: true, b: "okay", test: 123 }).test( $widget.widget( "option" ) ),
             "get multiple properties at once"
         );
+    });
+
+    test( "Event binding", function() {
+        expect( 3 );
+
+        var handler = function() {};
+        var on = sinon.spy( $.fn, "on" );
+        var $widget = $( "#widget-test1" ).widget();
+
+        $widget.widget( "eventBind" );
+        $widget.widget( "eventBind", "custom" );
+        $widget.widget( "eventBind", "custom", ".selector" );
+        strictEqual( on.callCount, 0, "don't attach event if no handler function is passed." );
+
+        $widget.widget( "eventBind", "custom", handler );
+        strictEqual( on.callCount, 1, "attach event with event name + handler" );
+
+        $widget.widget( "eventBind", "custom", ".selector", handler );
+        strictEqual( on.callCount, 2, "attach event with event name, selector and handler" );
+
+        // Restore spy
+        on.restore();
+    });
+
+    test( "Event unbinding", function() {
+        expect( 3 );
+
+        var handler = sinon.spy();
+        var off = sinon.spy( $.fn, "off" );
+        var $widget = $( "#widget-test1" ).widget();
+
+        $widget.widget( "eventBind", "custom1", handler );
+        $widget.widget( "eventBind", "custom2", handler );
+        $widget.widget( "eventBind", "custom2", ".selector", handler );
+
+        $widget.widget( "eventUnbind", "custom1" );
+        $widget.trigger( "custom1" );
+        strictEqual( handler.callCount, 0, "detaches normal events" );
+
+        $widget.widget( "eventUnbind", "custom2", ".selector" );
+        $widget.trigger( "custom2" );
+        strictEqual( handler.callCount, 1, "detaches events with selectors" );
+
+        $widget.widget( "eventUnbind" );
+        $widget.trigger( "custom1" );
+        $widget.trigger( "custom2" );
+        strictEqual( handler.callCount, 1, "detaches everything when no args provided" );
+
+        // Restore spy
+        off.restore();
     });
 
     test( "Destroy", function() {

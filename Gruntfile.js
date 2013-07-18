@@ -9,9 +9,16 @@ module.exports = exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-qunit" );
     grunt.loadNpmTasks( "grunt-contrib-jshint" );
     grunt.loadNpmTasks( "grunt-jscs-checker" );
+    grunt.loadNpmTasks( "grunt-jquery-builder" );
 
     grunt.registerTask( "styles", [ "less" ] );
-    grunt.registerTask( "scripts", [ "jshint:dev", "jscs:dev", "qunit:dev", "concat:dev" ] );
+    grunt.registerTask( "scripts", [
+        "jshint:dev",
+        "jscs:dev",
+        "jquery:dev",
+        "qunit:dev",
+        "concat:dev"
+    ]);
     grunt.registerTask( "default", [ "styles", "scripts" ] );
 };
 
@@ -44,6 +51,12 @@ exports.tasks = {
     },
     jscs: {
         dev: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
+    },
+    jquery: {
+        dev: {
+            output: "tests/unit/lib/jquery",
+            versions: [ "1.9.0", "1.10.0", "2.0.0" ]
+        }
     },
     concat: {
         dev: {

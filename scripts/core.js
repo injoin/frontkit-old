@@ -158,6 +158,7 @@
                 this._destroy();
             }
             this.element.removeData( this.name );
+            this._off();
 
             // Event triggering
             this._trigger( "destroy" );
@@ -227,7 +228,50 @@
                 );
             }
 
-            log( "Triggered event '" + event.type + "'" );
+            log( "Triggered event '" + this.name + "." + event.type + "'" );
+        },
+
+        // Delegate events to the widget element
+        _on: function( event, selector, handler ) {
+            var widget = this;
+
+            if ( $.isPlainObject( event ) ) {
+                $.each( event, function( handler, evt ) {
+                    evt = $.trim( evt ).split( " " );
+                    event = evt[ 0 ];
+                    selector = evt[ 1 ];
+
+                    widget._on( event, selector, handler );
+                });
+            } else {
+                if ( arguments.length === 2 ) {
+                    handler = selector;
+                    selector = null;
+                }
+
+                if ( !$.isFunction( handler ) ) {
+                    return;
+                }
+
+                widget.element.on( ( event || "" ) + this.eventNamespace, selector, handler );
+            }
+
+            return this;
+        },
+
+        // Undelegate events to the widget element
+        _off: function( event, selector ) {
+            if ( $.isArray( event ) ) {
+                var i, len;
+                for ( i = 0, len = event.length; i < len; i++ ) {
+                    this._off( event + this.eventNamespace );
+                }
+            } else {
+                event = typeof event === "string" ? event : "";
+                this.element.off( event + this.eventNamespace, selector );
+            }
+
+            return this;
         }
     });
 
