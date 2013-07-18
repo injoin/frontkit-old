@@ -1,9 +1,14 @@
 {
-	"browser": true,
-	"jquery": true,
+    "browser": true,
+    "jquery": true,
 
     "maxlen": 100,
-	"eqeqeq": true,
-	"eqnull": true,
-	"validthis": true
+    "eqeqeq": true,
+    "eqnull": true,
+    "validthis": true,
+    "forin": false,
+    "strict": true,
+    "noempty": true,
+    "curly": true,
+    "quotmark": "double"
 }
