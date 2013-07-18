@@ -1,6 +1,13 @@
 {
     "name": "frontkit",
     "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url":  "git://github.com/injoin/frontkit.git"
+    },
+    "bugs": {
+        "url": "https://github.com/injoin/frontkit/issues"
+    },
     "devDependencies": {
         "grunt": "~0.4.x",
         "grunt-contrib-concat": "0.3.x",
@@ -12,8 +19,10 @@
         "grunt-jscs-checker": ">=0.1.2",
         "grunt-jquery-builder": "0.1.x"
     },
-    "repository": {
-        "type": "git",
-        "url":  "https://github.com/injoin/frontkit.git"
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "scripts": {
+        "test": "grunt default"
     }
 }
