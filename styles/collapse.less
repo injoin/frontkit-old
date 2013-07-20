@@ -1,0 +1,47 @@
+/* COLLAPSE
+---------------------------------------- */
+
+.collapse {
+  display: none;
+  background: @collapse-bg;
+
+  .nav {
+    margin: 0;
+
+    li {
+      float: none
+    }
+  }
+}
+
+.collapse-button {
+  display: none;
+
+  .bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin-bottom: 2px;
+    background-color: #fff;
+    border-radius: @border-radius-small;
+  }
+
+  &.btn-default .bar {
+    background-color: @text-color;
+  }
+}
+
+.navbar .btn.collapse-button {
+  margin-top: -( ( @navbar-height - @padding-base-vertical ) / 4 );
+}
+
+@media ( max-width: @grid-float-breakpoint ) {
+  .collapse-button { display: inline-block; }
+  .collapse-item { display: none; }
+}
+
+@media ( min-width: @grid-float-breakpoint ) {
+  .collapse {
+    display: none !important;
+  }
+}

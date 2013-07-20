@@ -2,6 +2,8 @@
 ---------------------------------------- */
 
 .container {
+  padding-left: ( @grid-gutter-width / 2 );
+  padding-right: ( @grid-gutter-width / 2 );
   .center-block();
   .clear-float();
 }
@@ -24,6 +26,11 @@
 
 @media screen and ( min-width: @grid-float-breakpoint ) {
   .generate-grid(@grid-columns);
+
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 // Container sizing

@@ -73,7 +73,6 @@
 // ------------
 .navbar-fixed-top,
 .navbar-fixed-bottom {
-  position: fixed;
   left: 0;
   right: 0;
   z-index: @zindex-navbar-fixed;
@@ -87,5 +86,10 @@
 @media screen and ( min-width: @grid-float-breakpoint ) {
   .navbar-brand {
     float: left;
+  }
+
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+    position: fixed;
   }
 }
