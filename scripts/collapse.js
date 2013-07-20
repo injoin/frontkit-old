@@ -1,4 +1,4 @@
-(function( $, window ) {
+(function( $ ) {
     "use strict";
 
     var $body = $( "body" );
@@ -19,7 +19,7 @@
 
         _setOption: function( name, value ) {
             if ( name === "element" ) {
-                if ( typeof value === "string" ) {
+                if ( typeof value === "string" || value.nodeType ) {
                     value = $( value );
                 } else if ( !( value instanceof $ ) ) {
                     value = null;
@@ -52,7 +52,10 @@
                 this.options.element.removeClass( "collapse-item" );
             }
 
+            // We may clean the current contents of the wrapper...
             this.wrapper.empty();
+
+            // If a valid element was provided, let's append a clone of it
             if ( $el != null ) {
                 $el.clone().appendTo( this.wrapper );
                 $el.addClass( "collapse-item" );
@@ -62,4 +65,4 @@
         }
     });
 
-})( jQuery, window );
+})( jQuery );
