@@ -11,7 +11,6 @@
         options: {
             offset: 0,
             position: 0,
-            mobile: true,
 
             // Event callbacks
             activate: null
@@ -26,15 +25,9 @@
             instances.push( this );
         },
 
-        _setMobile: function( value ) {
-            this.element.toggleClass( "affix-no-mobile", !value );
-        },
-
         _setOption: function( name, value ) {
             if ( name === "offset" || name === "position" ) {
                 value = parseFloat( value );
-            } else if ( name === "mobile" ) {
-                this._setMobile( value );
             }
 
             this.super( name, value );
@@ -73,7 +66,7 @@
             var index = instances.indexOf( this );
             instances.splice( index, 1 );
 
-            this.element.removeClass( "affix affix-no-mobile affix-inactive" );
+            this.element.removeClass( "affix affix-inactive" );
         }
     });
 
