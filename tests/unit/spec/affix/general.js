@@ -12,15 +12,8 @@
     });
 
     test( "Classes", function() {
-        expect( 2 );
-
+        expect( 1 );
         ok( this.affix.hasClass( "affix" ), "has class affix" );
-
-        this.affix.affix( "option", "mobile", false );
-        ok(
-            this.affix.hasClass( "affix-no-mobile" ),
-            "adds class affix-no-mobile depending on the mobile option"
-        );
     });
 
     test( "Instance Cache", function() {
@@ -51,9 +44,6 @@
         this.instance.top = 100;
         this.instance.options.offset = 40;
         this.instance.options.position = 30;
-
-        // We use this here because of PhantomJS
-        this.instance._setMobile( true );
 
         // Not enough scrolling
         stub.returns( 60 );
