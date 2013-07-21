@@ -142,7 +142,7 @@
     $.extend( $.frontkit.Widget.prototype, {
         initialize: function( options ) {
             log( "Initializing " + this.name + " widget" );
-            this.options = {};
+            this.options = $.extend( {}, this.options );
             this.option( options );
 
             if ( $.isFunction( this._initialize ) ) {
