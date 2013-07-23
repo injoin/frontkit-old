@@ -21,14 +21,22 @@
     display: block;
     width: 18px;
     height: 2px;
-    margin-bottom: 2px;
     background-color: #fff;
-    border-radius: @border-radius-small;
+    border-radius: 1px;
+    .box-shadow( 0 1px 0 rgba( 0, 0, 0, .25 ) );
+  }
+
+  .bar + .bar {
+    margin-top: 3px;
   }
 
   &.btn-default .bar {
     background-color: @text-color;
   }
+}
+
+.navbar .btn.collapse-button {
+  margin-top: -( ( @navbar-height - @padding-base-vertical ) / 4 );
 }
 
 @media screen and ( max-width: @screen-small ) {

@@ -175,6 +175,10 @@ input[ type="radio" ] {
 
 // Inline Form
 // -----------
+
+/**
+ * 1. Ensure that inline forms will not use the whole row
+ */
 .form-inline {
   input,
   textarea,
@@ -193,6 +197,16 @@ input[ type="radio" ] {
 
   .input-group {
     margin-bottom: 0;
+
+    input,
+    select {
+      width: auto;
+    }
+
+    .input-group-addon,
+    .input-group-btn {
+      width: auto;
+    }
   }
 }
 
