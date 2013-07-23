@@ -1,8 +1,19 @@
 /* NAVBAR
 ---------------------------------------- */
 
+/**
+ * 1. 2009 flexbox support for Flexie.js
+ * 2. Vertically align every element inside a navbar
+ */
 .navbar {
   position: relative;
+
+  /* 1 */
+  .flexbox();
+
+  /* 2 */
+  .flexbox-align( center );
+
   min-height: @navbar-height;
   margin-bottom: @line-height-computed;
   padding-left: @grid-gutter-width / 2;
@@ -19,7 +30,7 @@
 // ------------
 .navbar-brand {
   display: inline-block;
-  padding: ( ( @navbar-height - ( @font-size-large * @line-height-base ) ) / 2 ) 15px;
+  padding: 0 15px;
   color: @navbar-brand-color;
   font-size: @font-size-large;
   .transition( color 0.1s linear );
@@ -45,7 +56,7 @@
   float: left;
 
   > a {
-    padding: ( ( @navbar-height - @line-height-computed ) / 2 ) @padding-base-horizontal;
+    padding: 0 @padding-base-horizontal;
     color: @navbar-link;
     text-shadow: 0 1px 0 @navbar-bg;
 
@@ -65,8 +76,9 @@
 }
 
 // Navbar text
+// -----------
 .navbar-text {
-  padding: ( ( @navbar-height - @line-height-computed ) / 2 );
+  padding: 0;
 }
 
 // Fixed navbar
@@ -83,7 +95,7 @@
 .navbar-fixed-top    { top: 0; }
 .navbar-fixed-bottom { bottom: 0; }
 
-@media screen and ( min-width: @grid-float-breakpoint ) {
+@media screen and ( min-width: @screen-small ) {
   .navbar-brand {
     float: left;
   }

@@ -108,6 +108,50 @@
           hyphens: @mode;
 }
 
+// flexbox + flexie.js support
+.flexbox() {
+  display: -webkit-box;
+  display: -moz-flexbox;
+  display: -ms-flexbox;
+  display: box;
+  display: -webkit-flex;
+  display: flex;
+}
+
+// flexbox align-items (old box-align)
+.flexbox-align( @align ) {
+  -webkit-box-align: @align;
+     -moz-box-align: @align;
+          box-align: @align;
+  -webkit-align-items: @align;
+          align-items: @align;
+}
+
+.flexbox-align( @align ) when ( @align = start ) {
+  -webkit-box-align: start;
+     -moz-box-align: start;
+          box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+}
+
+.flexbox-align( @align ) when ( @align = end ) {
+  -webkit-box-align: end;
+     -moz-box-align: end;
+          box-align: end;
+  -webkit-align-items: flex-end;
+          align-items: flex-endt;
+}
+
+.flex( @number: 0 ) {
+  -webkit-box-flex: @number;
+     -moz-box-flex: @number;
+      -ms-box-flex: @number;
+          box-flex: @number;
+  -webkit-flex: @number;
+          flex: @number;
+}
+
 #gradient {
   .horizontal( @startColor, @endColor ) {
     background-color: @endColor;
@@ -213,11 +257,11 @@
   }
 }
 
-.generate-grid( @columns-count: @grid-columns ) {
+.generate-grid( @column-name, @columns-count: @grid-columns ) {
 
   // Default columns
   .spanX( @index ) when ( @index > 0 ) {
-    .col-span@{index} { .span( @index ); }
+    .@{column-name}-@{index} { .span( @index ); }
     .spanX( ( @index - 1 ) );
   }
   .spanX( 0 ) {}
@@ -230,7 +274,7 @@
 
   // Offseting
   .offsetX( @index ) when ( @index > 0 ) {
-    .col-offset@{index} { .offset( @index ); }
+    .offset-@{column-name}-@{index} { .offset( @index ); }
     .offsetX( ( @index - 1 ) );
   }
   .offsetX( 0 ) {}
@@ -251,4 +295,24 @@
       max-width: ( @screen-width - @grid-gutter-width - ( @deduction-factor * 10px ) );
     }
   }
+}
+
+// Responsive Utilities
+// --------------------
+.responsive-visible() {
+  display: block !important;
+
+  tr& { display: table-row !important; }
+
+  th&,
+  td& { display: table-cell !important; }
+}
+
+.responsive-invisible() {
+  display: none !important;
+
+  tr& { display: none !important; }
+
+  th&,
+  td& { display: none !important; }
 }

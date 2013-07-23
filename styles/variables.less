@@ -190,10 +190,14 @@
 // ----
 @grid-columns:              12;
 @grid-gutter-width:         30px;
-@grid-float-breakpoint:     768px;
 
 // Responsive Utils
 // ----------------
-@screen-small:              768px;
-@screen-medium:             980px;
 @screen-large:              1200px;
+@screen-medium:             980px;
+@screen-small:              768px;
+@screen-tiny:               360px;
+
+@screen-medium-max:         ( @screen-large - 1px );
+@screen-small-max:          ( @screen-medium - 1px );
+@screen-tiny-max:           ( @screen-small - 1px );

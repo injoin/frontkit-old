@@ -31,16 +31,12 @@
   }
 }
 
-.navbar .btn.collapse-button {
-  margin-top: -( ( @navbar-height - @padding-base-vertical ) / 4 );
-}
-
-@media ( max-width: @grid-float-breakpoint ) {
+@media screen and ( max-width: @screen-small ) {
   .collapse-button { display: inline-block; }
   .collapse-item { display: none; }
 }
 
-@media ( min-width: @grid-float-breakpoint ) {
+@media screen and ( min-width: @screen-small ) {
   .collapse {
     display: none !important;
   }

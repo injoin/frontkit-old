@@ -24,13 +24,12 @@
   padding-right: ( @grid-gutter-width / 2 );
 }
 
-@media screen and ( min-width: @grid-float-breakpoint ) {
-  .generate-grid(@grid-columns);
+@media only screen {
+  .generate-grid( small );
+}
 
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
+@media screen and ( min-width: @screen-small ) {
+  .generate-grid( large );
 }
 
 // Container sizing
