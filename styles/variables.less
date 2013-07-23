@@ -46,8 +46,8 @@
 @font-weight-headings:    bold;
 
 @font-size-base:          14px;
-@font-size-large:         ( @font-size-base * 1.25 );
-@font-size-small:         ( @font-size-base * 0.85 );
+@font-size-large:         ceil( @font-size-base * 1.25 );
+@font-size-small:         ceil( @font-size-base * 0.85 );
 
 @line-height-computed:    20px;
 @line-height-base:        unit( @line-height-computed / @font-size-base );
@@ -88,9 +88,9 @@
 @input-border:            #ccc;
 @input-border-radius:     @border-radius-base;
 
-@input-height-small:      ( @line-height-computed + ( @padding-small-vertical * 2 ) + 2 );
 @input-height-base:       ( @line-height-computed + ( @padding-base-vertical * 2 ) + 2 );
-@input-height-large:      ( @line-height-computed + ( @padding-large-vertical * 2 ) + 2 );
+@input-height-small:      ( ceil( @line-height-base * @font-size-small ) + ( @padding-small-vertical * 2 ) + 2 );
+@input-height-large:      ( ceil( @line-height-base * @font-size-large ) + ( @padding-large-vertical * 2 ) + 2 );
 
 // Buttons
 // -------
