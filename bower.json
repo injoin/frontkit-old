@@ -1,6 +1,6 @@
 {
     "name": "frontkit",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "./styles/frontkit.less",
     "dependencies": {
         "jquery": ">=1.9.0"
