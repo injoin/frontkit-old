@@ -4,6 +4,11 @@
     var $window = $( window );
     var instances = [];
 
+    var classes = {
+        AFFIX: "affix",
+        AFFIX_INACTIVE: "affix-inactive"
+    };
+
     $.frontkit( "affix", {
         top: 0,
         active: false,
@@ -18,7 +23,7 @@
 
         _initialize: function() {
             this.top = this.element.offset().top;
-            this.element.addClass( "affix affix-inactive" );
+            this.element.addClass( classes.AFFIX + " " + classes.AFFIX_INACTIVE );
 
             // Keep a cache of this instance, so when window event occurs,
             // we don't need to search the whole page again
@@ -46,11 +51,11 @@
             if ( scrollTop > ( this.top - this.options.offset ) ) {
                 // We're activating the affix here
                 this.element.css( "top", this.options.position );
-                this.element.removeClass( "affix-inactive" );
+                this.element.removeClass( classes.AFFIX_INACTIVE );
 
                 nowActive = true;
             } else {
-                this.element.addClass( "affix-inactive" );
+                this.element.addClass( classes.AFFIX_INACTIVE );
                 nowActive = false;
             }
 
@@ -70,16 +75,15 @@
             instances.splice( index, 1 );
 
             // Our custom classes must go away too!
-            this.element.removeClass( "affix affix-inactive" );
+            this.element.removeClass( classes.AFFIX + " " + classes.AFFIX_INACTIVE );
         }
     });
 
     $window.data( "affixInstances", instances ).on( "scroll.affix", function() {
+        var i, len;
         var scrollTop = $window.scrollTop();
-        var i = 0;
-        var len = instances.length;
 
-        for ( ; i < len; i++ ) {
+        for ( i = 0, len = instances.length; i < len; i++ ) {
             instances[ i ]._positionElement( scrollTop );
         }
     });
