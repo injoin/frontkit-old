@@ -41,9 +41,8 @@
 
         var stub = sinon.stub( $.fn, "scrollTop" );
 
-        this.instance.top = 100;
-        this.instance.options.offset = 40;
-        this.instance.options.position = 30;
+        this.instance.start = 100;
+        this.instance.options.offsetTop = 40;
 
         // Not enough scrolling
         stub.returns( 60 );
@@ -64,7 +63,7 @@
         );
 
         strictEqual(
-            parseInt( this.affix.css( "top" ), 10 ), 30,
+            parseInt( this.affix.css( "top" ), 10 ), 40,
             "set the correct positioning when enough scrolling"
         );
 

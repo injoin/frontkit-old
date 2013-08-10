@@ -10,19 +10,19 @@
     };
 
     $.frontkit( "affix", {
-        top: 0,
+        start: 0,
         active: false,
 
         options: {
-            offset: 0,
-            position: 0,
+            offsetTop: 0,
+            offsetBottom: 0,
 
             // Event callbacks
             activate: null
         },
 
         _initialize: function() {
-            this.top = this.element.offset().top;
+            this.start = this.element.offset().top;
             this.element.addClass( classes.AFFIX + " " + classes.AFFIX_INACTIVE );
 
             // Keep a cache of this instance, so when window event occurs,
@@ -31,7 +31,7 @@
         },
 
         _setOption: function( name, value ) {
-            if ( name === "offset" || name === "position" ) {
+            if ( name === "offsetTop" || name === "offsetBottom" ) {
                 value = parseFloat( value );
                 value = isNaN( value ) ? 0 : value;
             }
@@ -40,17 +40,34 @@
         },
 
         _positionElement: function( scrollTop ) {
-            var nowActive;
-            var wasActive = this.active;
+            var position, nowActive;
+            var wasActive =     this.active;
+            var offsetHeight =  document.body.offsetHeight;
+            var scrollHeight =  $( document ).height();
+            var elemHeight =    this.element.outerHeight();
+            var elemOffset =    this.element.offset().top;
+            var offsetTop =     this.options.offsetTop;
+            var offsetBottom =  this.options.offsetBottom;
 
             // There's no why to adjust the position of an hidden element...
             if ( this.element.is( ":hidden" ) ) {
                 return;
             }
 
-            if ( scrollTop > ( this.top - this.options.offset ) ) {
+            position = {
+                top: "auto",
+                bottom: "auto"
+            };
+
+            if ( scrollTop > ( this.start - offsetTop ) ) {
+                if ( ( elemOffset + elemHeight ) >= ( scrollHeight - offsetBottom ) ) {
+                    position.bottom = offsetBottom;
+                } else {
+                    position.top = offsetTop;
+                }
+
                 // We're activating the affix here
-                this.element.css( "top", this.options.position );
+                this.element.css( position );
                 this.element.removeClass( classes.AFFIX_INACTIVE );
 
                 nowActive = true;
@@ -82,9 +99,10 @@
     $window.data( "affixInstances", instances ).on( "scroll.affix", function() {
         var i, len;
         var scrollTop = $window.scrollTop();
+        var height = $window.height();
 
         for ( i = 0, len = instances.length; i < len; i++ ) {
-            instances[ i ]._positionElement( scrollTop );
+            instances[ i ]._positionElement( scrollTop, height );
         }
     });
 

@@ -17,7 +17,7 @@
         var event = sinon.spy();
 
         this.affix.affix( "option", "activate", event );
-        this.instance.top = 10;
+        this.instance.start = 10;
 
         // Activation
         scrollTop.returns( 30 );
