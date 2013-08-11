@@ -1,5 +1,7 @@
 {
     "name": "frontkit",
+    "title": "Frontkit",
+    "description": "The InJoin frontend development toolkit.",
     "version": "0.0.1",
     "repository": {
         "type": "git",
@@ -16,7 +18,7 @@
         "grunt-contrib-qunit": "0.2.x",
         "grunt-contrib-jshint": "0.6.x",
         "grunt-contrib-connect": "0.3.x",
-        "grunt-jscs-checker": ">=0.1.2"
+        "grunt-jscs-checker": ">=0.1.5"
     },
     "engines": {
         "node": ">=0.10.0"
