@@ -5,7 +5,7 @@
 
     function log( message ) {
         if ( console && console.log && $.frontkit.debug ) {
-            console.log( "[FrontKit " + $.frontkit.version + "] " + message );
+            console.log( "[Frontkit " + $.frontkit.version + "] " + JSON.stringify( message ) );
         }
     }
 
