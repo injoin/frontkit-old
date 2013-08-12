@@ -40,5 +40,7 @@
             "[Frontkit " + $.frontkit.version + "] " + stringifiedArr,
             "log format is [Frontkit VERSION] stringified message"
         );
+
+        json.restore();
     });
 })( jQuery, sinon );
