@@ -1,11 +1,17 @@
-(function( $ ) {
+(function( $, document ) {
     "use strict";
 
     var $body = $( "body" );
     var collapseStyles = [ "top", "side" ];
 
+    var classes = {};
+    classes.HIDDEN_ACCESSIBLE = "hidden-accessible";
+    classes.COLLAPSE = "collapse";
+    classes.COLLAPSE_ITEM = "collapse-item";
+
     $.frontkit( "collapse", {
         wrapper: null,
+        visible: false,
 
         options: {
             element: null,
@@ -15,6 +21,13 @@
 
         _initialize: function() {
             this._on( "click", $.proxy( this._toggleCollapse, this ) );
+        },
+
+        _destroy: function() {
+            if ( ( this.wrapper instanceof $ ) ) {
+                // Let's simply remove our wrapper!
+                this.wrapper.remove();
+            }
         },
 
         _setOption: function( name, value ) {
@@ -37,32 +50,71 @@
             this.super( name, value );
         },
 
+        // Toggle collapsed state of the wrapper element.
         _toggleCollapse: function() {
-            this.wrapper.slideToggle( this.options.duration );
+            var sideWidth;
+            var data = {
+                collapsed: this.wrapper.is( ":visible" )
+            };
+
+            // Allow canceling collapsing
+            if ( !this._trigger( "beforeCollapse", null, data ) ) {
+                return;
+            }
+
+            // Add a helper class
+            this.wrapper.removeClass( "collapse-top collapse-side" );
+            this.wrapper.addClass( "collapse-" + this.options.style );
+
+            // Shows the wrapped elements
+            if ( this.options.style === "side" ) {
+                this.wrapper.addClass( classes.HIDDEN_ACCESSIBLE );
+                sideWidth = this.wrapper.width();
+                this.wrapper.css( "margin-left", -sideWidth );
+                this.wrapper.removeClass( classes.HIDDEN_ACCESSIBLE );
+
+                $body.css( "position", "relative" );
+
+                // If we used margin/padding, the content would be pressed.
+                $body.animate({
+                    left: !this.visible ? sideWidth : 0
+                });
+
+                this.wrapper.toggle( this.options.duration );
+            } else {
+                this.wrapper.slideToggle( this.options.duration );
+            }
+
+            this.visible = !this.visible;
+            data.collapsed = true;
+            this._trigger( "collapse", null, data );
         },
 
+        // Wraps an element with a .collapse element
         _wrapElements: function( $el ) {
-            // Create the wrapper if it doesn't already exist
             if ( !this.wrapper ) {
-                this.wrapper = $( "<div />" );
-                this.wrapper.addClass( "collapse" ).prependTo( $body );
+                // Create the wrapper if it doesn't already exist
+                this.wrapper = $( document.createElement( "div" ) );
+                this.wrapper.hide()
+                            .addClass( classes.COLLAPSE )
+                            .prependTo( $body );
+            } else {
+                // We may clean the current contents of the wrapper...
+                this.wrapper.empty();
             }
 
             if ( this.options.element ) {
-                this.options.element.removeClass( "collapse-item" );
+                this.options.element.removeClass( classes.COLLAPSE_ITEM );
             }
-
-            // We may clean the current contents of the wrapper...
-            this.wrapper.empty();
 
             // If a valid element was provided, let's append a clone of it
             if ( $el != null ) {
                 $el.clone().appendTo( this.wrapper );
-                $el.addClass( "collapse-item" );
+                $el.addClass( classes.COLLAPSE_ITEM );
             }
 
             this.options.element = $el;
         }
     });
 
-})( jQuery );
+})( jQuery, document );
