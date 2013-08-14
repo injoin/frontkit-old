@@ -194,7 +194,7 @@
         },
 
         _trigger: function( type, event, data ) {
-            var orig, prop;
+            var orig, prop, retVal;
 
             if ( typeof type !== "string" ) {
                 return;
@@ -205,7 +205,6 @@
             event.type = ( this.name + type ).toLowerCase();
             event.target = this.element[ 0 ];
             event.currentTarget = event.currentTarget || event.target;
-            event.preventDefault = event.preventDefault || $.noop;
 
             data = data || {};
             orig = event.originalEvent;
@@ -218,10 +217,11 @@
             }
 
             this.element.trigger( event, data );
+            retVal = !event.isDefaultPrevented();
 
             // If the instance option is a callback, we can call it!
-            if ( $.isFunction( this.options[ type ] ) ) {
-                this.options[ type ].call(
+            if ( retVal && $.isFunction( this.options[ type ] ) ) {
+                retVal = this.options[ type ].call(
                     this.element[ 0 ],
                     event,
                     data
@@ -229,6 +229,7 @@
             }
 
             log( "Triggered event '" + this.name + "." + event.type + "'" );
+            return retVal !== false;
         },
 
         // Delegate events to the widget element
