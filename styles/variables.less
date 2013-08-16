@@ -95,7 +95,7 @@
 
 // Buttons
 // -------
-@btn-border:              @gray-light;
+@btn-border:              @input-border;
 
 // Hero Unit
 // ---------
@@ -150,25 +150,27 @@
 @nav-list-link:             @link-color;
 @nav-list-link-hover:       @link-color-hover;
 
-@nav-sub-hover-bg:          @link-color-hover;
-@nav-sub-hover-text:        #fff;
+@nav-sub-hover-bg:          @gray-lighter;
+@nav-sub-hover-text:        @link-color-hover;
 
 // Navbar
 // ------
-@navbar-bg:                 @brand-default;
+@navbar-bg:                 @gray-lighter;
 @navbar-border:             darken( @navbar-bg, 15% );
-@navbar-height:             45px;
+@navbar-height:             50px;
+@navbar-border-radius:      @border-radius-base;
 
-@navbar-brand-color:        @text-color;
+@navbar-brand-color:        @gray-dark;
 @navbar-brand-hover-color:  lighten( @text-color, 20% );
 
 @navbar-link:               mix( @gray-light, @gray );
 @navbar-link-hover:         @gray-darker;
+@navbar-active-link-bg:     darken( @navbar-bg, 5% );
 
 // Panels
 // ------
-@panel-border-color:        darken( @brand-default, 15% );
-@panel-title-bg:            @brand-default;
+@panel-border-color:        @gray-lighter;
+@panel-title-bg:            lighten( @gray-lighter, 5% );
 @panel-title-color:         @gray;
 @panel-border-radius:       @border-radius-base;
 

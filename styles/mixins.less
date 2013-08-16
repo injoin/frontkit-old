@@ -179,10 +179,35 @@
 // Component mixins
 // ----------------
 
-.brand-colors( @brand: @brand-default, @color: @text-color ) {
-  color: @color;
-  border-color: rgba( 0, 0, 0, 10% ) rgba( 0, 0, 0, 10% ) rgba( 0, 0, 0, 25% );
-  #gradient > .vertical( @brand, darken( @brand, 15% ) );
+.button-style( @bg: @brand-default, @text: @text-color, @border: @btn-border ) {
+  border-color: @border;
+  color: @text;
+  background-color: @bg;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    border-color: darken( @border, 10% );
+    color: @text;
+    background-color: darken( @bg, 5% );
+  }
+
+  &[ disabled ],
+  &.disabled,
+  fieldset[ disabled ] & {
+    opacity: .6;
+    cursor: not-allowed;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active
+    &.active {
+      border-color: @border;
+      background-color: @bg;
+    }
+  }
 }
 
 .brand-sizing-small() {

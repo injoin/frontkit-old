@@ -8,10 +8,10 @@
   padding-left: @grid-gutter-width / 2;
   padding-right: @grid-gutter-width / 2;
   border: 1px solid @navbar-border;
-  border-radius: @border-radius-base;
+  border-radius: @navbar-border-radius;
+  background: @navbar-bg;
 
   .box-shadow( 0 0 5px 0 rgba( 0, 0, 0, 0.1 ) );
-  #gradient > .vertical( @navbar-bg, darken( @navbar-bg, 5% ) );
   .clear-float();
 }
 
@@ -55,8 +55,7 @@
   }
 
   &.active > a {
-    background: darken( @navbar-bg, 10% );
-    .box-shadow( inset 0 3px 8px rgba( 0, 0, 0, .15 ) );
+    background: @navbar-active-link-bg;
 
     &:hover {
       color: @navbar-link;
