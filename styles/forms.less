@@ -30,22 +30,9 @@ label {
 
 // Form controls
 // -------------
-select,
-textarea,
-input[ type="text" ],
-input[ type="password" ],
-input[ type="datetime" ],
-input[ type="datetime-local" ],
-input[ type="date" ],
-input[ type="time" ],
-input[ type="month" ],
-input[ type="week" ],
-input[ type="number" ],
-input[ type="url" ],
-input[ type="search" ],
-input[ type="tel" ],
-input[ type="color" ] {
+.form-control {
   display: inline-block;
+  width: 100%;
   min-height: @input-height-base;
   margin-bottom: ( @line-height-computed / 2 );
   padding: @padding-base-vertical @padding-base-horizontal;
@@ -54,12 +41,30 @@ input[ type="color" ] {
   color: @gray;
   vertical-align: middle;
   background-color: @input-bg;
-}
 
-input,
-select,
-textarea {
-  width: 100%;
+  .box-shadow( inset 0 1px 1px rgba( 0, 0, 0, 0.1 ) );
+  .transition( ~"border-color linear 0.2s, box-shadow linear 0.2s" );
+
+  // Placeholder support
+  .placeholder();
+
+  // Focused controls
+  &:focus {
+    .input-focus();
+  }
+
+  // Disabled state
+  &[ disabled ],
+  &[ readonly ],
+  fieldset[ disabled ] & {
+    cursor: not-allowed;
+    background-color: @input-disabled-bg;
+  }
+
+  // Reset textarea height, because they have rows
+  textarea& {
+    height: auto;
+  }
 }
 
 // Reset width of some input types, because of the generic input selector
@@ -70,55 +75,26 @@ input[ type="submit" ],
 input[ type="button" ],
 input[ type="radio" ],
 input[ type="checkbox" ] {
-  width: auto;
-}
-
-// Reset textarea height, because they have rows
-textarea {
-  height: auto;
-}
-
-textarea,
-input[ type="text" ],
-input[ type="password" ],
-input[ type="datetime" ],
-input[ type="datetime-local" ],
-input[ type="date" ],
-input[ type="month" ],
-input[ type="time" ],
-input[ type="week" ],
-input[ type="number" ],
-input[ type="email" ],
-input[ type="search" ],
-input[ type="url" ],
-input[ type="tel" ],
-input[ type="color" ] {
-  .box-shadow( inset 0 1px 1px rgba( 0, 0, 0, 0.1 ) );
-  .transition( ~"border-color linear 0.2s, box-shadow linear 0.2s" );
-
-  &:focus {
-    .input-focus();
+  &.form-control {
+    width: auto;
   }
-}
-
-// Better positioning for radio and checkboxes
-input[ type="checkbox" ],
-input[ type="radio" ] {
-  margin: 3px 0 0;
-  line-height: normal;
 }
 
 // Sets height of select and file to match text inputs
 select,
 input[ type="file" ] {
-  height: @input-height-base;
-  line-height: @input-height-base;
+  &.form-control {
+    height: @input-height-base;
+    line-height: @input-height-base;
+  }
 }
 
 // Selects that may show more than one item at once must not have fixed height
 select[ multiple ],
 select[ size ] {
-  height: auto;
+  &.form-control {
+    height: auto;
+  }
 }
 
 // Focus for select, file, radio and checkbox
@@ -129,13 +105,6 @@ input[ type="checkbox" ] {
   &:focus {
     .tab-focus();
   }
-}
-
-// Placeholder
-// -----------
-input,
-textarea {
-  .placeholder();
 }
 
 // Clickable controls
@@ -170,7 +139,7 @@ input[ type="radio" ] {
 .radio > input[ type="radio" ],
 .checkbox > input[ type="checkbox" ] {
   float: left;
-  margin-left: -20px;
+  margin: 3px 0 0 -20px;
 }
 
 // Inline Form
@@ -180,10 +149,8 @@ input[ type="radio" ] {
  * 1. Ensure that inline forms will not use the whole row
  */
 .form-inline {
-  input,
-  textarea,
-  select {
-    width: auto;
+  .form-control {
+    width: auto; /* 1 */
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -198,28 +165,11 @@ input[ type="radio" ] {
   .input-group {
     margin-bottom: 0;
 
-    input,
-    select {
-      width: auto;
-    }
-
+    .form-control,
     .input-group-addon,
     .input-group-btn {
-      width: auto;
+      width: auto; /* 1 */
     }
-  }
-}
-
-// Disabled state
-// --------------
-input,
-select,
-textarea {
-  &[ disabled ],
-  &[ readonly ],
-  fieldset[ disabled ] & {
-    cursor: not-allowed;
-    background-color: @input-disabled-bg;
   }
 }
 
@@ -232,9 +182,7 @@ textarea {
   color: lighten( @text-color, 25% );
 }
 
-input,
-select,
-textarea,
+.form-control,
 .input-group {
   + .input-help {
     margin-top: -( @line-height-computed / 4 );
@@ -247,86 +195,9 @@ textarea,
 .form-field-validation-state( error, @brand-danger );
 .form-field-validation-state( success, @brand-success );
 
-// Control groups
-// --------------
-
-/*
- * 1. Bring the focused input to the front, so the border will be shown
- * 2. Leaves the spacing to the .input-group
- */
-.input-group {
-  display: table;
-  margin-bottom: ( @line-height-computed / 2 ); /* 2 */
-
-  &.col {
-    float: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  input,
-  select {
-    width: 100%;
-    margin-bottom: 0; /* 2 */
-
-    &:focus {
-      position: relative;
-      z-index: 2; /* 1 */
-    }
-  }
-
-  .input-group-addon,
-  .input-group-btn {
-    width: 1%;
-  }
-}
-
-.input-group-addon {
-  padding: ( @padding-base-vertical - 1 ) @padding-base-horizontal;
-  border: 1px solid @input-border;
-  background: darken( @brand-default, 5% );
-  border-radius: @border-radius-base;
-}
-
-/*
- * 1. Remove rounded borders when one of the sides match the middle of the group
- * 2. Match inputs vertical aligning
- */
-.input-group-addon,
-.input-group-btn,
-.input-group input {
-  display: table-cell;
-  vertical-align: middle; /* 2 */
-
-  &:first-child:not( :last-child ) {
-    &, .btn {
-      .border-right-radius( 0 ); /* 1 */
-    }
-  }
-
-  &:last-child:not( :first-child ) {
-    &, .btn {
-      .border-left-radius( 0 ); /* 1 */
-    }
-  }
-
-  &:not( :first-child ):not( :last-child ) {
-    &, .btn {
-      border-radius: 0; /* 1 */
-    }
-  }
-
-  &:not( :last-child ) {
-    &, .btn { border-right: none; }
-  }
-}
-
 // Input Sizing
 // ------------
-input,
-textarea,
-select,
-.input-group-addon {
+.form-control {
   &.input-small {
     min-height: @input-height-small;
     padding: @padding-small-vertical @padding-small-horizontal;

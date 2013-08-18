@@ -1,0 +1,90 @@
+// INPUT GROUPS
+// -----------------------
+
+/*
+ * 1. Bring the focused input to the front, so the border will be shown
+ * 2. Leaves the spacing to the .input-group
+ * 3. Avoid inheriting border styles from table, when placed inside one
+ */
+.input-group {
+  display: table;
+  border-collapse: separate; /* 3 */
+  margin-bottom: ( @line-height-computed / 2 ); /* 2 */
+
+  .form-control {
+    width: 100%;
+    margin-bottom: 0; /* 2 */
+
+    &:focus {
+      position: relative;
+      z-index: 2; /* 1 */
+    }
+  }
+
+  .input-group-addon,
+  .input-group-btn {
+    width: 1%;
+  }
+}
+
+.input-group-addon {
+  padding: ( @padding-base-vertical - 1 ) @padding-base-horizontal;
+  border: 1px solid @input-border;
+  background: darken( @brand-default, 5% );
+  border-radius: @border-radius-base;
+}
+
+/*
+ * 1. Remove rounded borders when one of the sides match the middle of the group
+ * 2. Match inputs vertical aligning
+ */
+.input-group-addon,
+.input-group-btn,
+.input-group input {
+  display: table-cell;
+  vertical-align: middle; /* 2 */
+
+  &:first-child:not( :last-child ) {
+    &, .btn {
+      .border-right-radius( 0 ); /* 1 */
+    }
+  }
+
+  &:last-child:not( :first-child ) {
+    &, .btn {
+      .border-left-radius( 0 ); /* 1 */
+    }
+  }
+
+  &:not( :first-child ):not( :last-child ) {
+    &, .btn {
+      border-radius: 0; /* 1 */
+    }
+  }
+
+  &:not( :last-child ) {
+    &, .btn { border-right: none; }
+  }
+}
+
+// Input Sizing
+// ------------
+.input-group-small {
+  > .form-control,
+  > .input-group-addon,
+  > .input-group-btn > .btn {
+    min-height: @input-height-small;
+    padding: @padding-small-vertical @padding-small-horizontal;
+    font-size: @font-size-small;
+  }
+}
+
+.input-group-large {
+  > .form-control,
+  > .input-group-addon,
+  > .input-group-btn > .btn {
+    min-height: @input-height-large;
+    padding: @padding-large-vertical @padding-large-horizontal;
+    font-size: @font-size-large;
+  }
+}
