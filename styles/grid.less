@@ -25,11 +25,22 @@
 }
 
 @media only screen {
-  .generate-grid( small );
+  .generate-grid( tiny );
 }
 
 @media screen and ( min-width: @screen-small ) {
+  .generate-grid( small );
+  .generate-grid-offset( small );
+}
+
+@media screen and ( min-width: @screen-medium ) {
+  .generate-grid( medium );
+  .generate-grid-offset( medium );
+}
+
+@media screen and ( min-width: @screen-large ) {
   .generate-grid( large );
+  .generate-grid-offset( large );
 }
 
 // Container sizing

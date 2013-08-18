@@ -53,6 +53,14 @@
   &::-webkit-input-placeholder  { color: @color; }
 }
 
+.user-select( @select ) {
+  -webkit-user-select: @select;
+     -moz-user-select: @select;
+      -ms-user-select: @select;
+       -o-user-select: @select;
+          user-select: @select;
+}
+
 // CSS3 Properties
 // ---------------
 
@@ -196,9 +204,6 @@
   &[ disabled ],
   &.disabled,
   fieldset[ disabled ] & {
-    opacity: .6;
-    cursor: not-allowed;
-
     &,
     &:hover,
     &:focus,
@@ -270,9 +275,8 @@
   }
 }
 
+// Generates grid columns
 .generate-grid( @column-name, @columns-count: @grid-columns ) {
-
-  // Default columns
   .spanX( @index ) when ( @index > 0 ) {
     .@{column-name}-@{index} { .span( @index ); }
     .spanX( ( @index - 1 ) );
@@ -284,8 +288,11 @@
   }
 
   // -----
+  .spanX( @columns-count );
+}
 
-  // Offseting
+// Generate grid offsets
+.generate-grid-offset( @column-name, @columns-count: @grid-columns ) {
   .offsetX( @index ) when ( @index > 0 ) {
     .offset-@{column-name}-@{index} { .offset( @index ); }
     .offsetX( ( @index - 1 ) );
@@ -297,9 +304,7 @@
   }
 
   // -----
-
-  .spanX( @grid-columns );
-  .offsetX( @grid-columns );
+  .offsetX( @columns-count );
 }
 
 .media-query( @screen-width, @deduction-factor: 0 ) {
