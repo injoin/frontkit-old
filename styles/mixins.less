@@ -307,6 +307,22 @@
   .offsetX( @columns-count );
 }
 
+// Generate block grids
+.generate-block-grid( @column-name, @columns-count: @grid-columns ) {
+  .spanX( @index ) when ( @index > 0 ) {
+    .block-grid-@{column-name}-@{index} > * { .span( @index ) }
+    .spanX( ( @index - 1 ) );
+  }
+  .spanX( 0 ){}
+
+  .span( @columns ) {
+    width: ( 100% / @columns );
+  }
+
+  // -----
+  .spanX( @columns-count );
+}
+
 .media-query( @screen-width, @deduction-factor: 0 ) {
   @media screen and ( min-width: @screen-width ) {
     .container {

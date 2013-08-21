@@ -1,0 +1,33 @@
+/* BLOCK GRID
+---------------------------------------- */
+
+.block-grid {
+  .clear-float();
+  margin: 0 -( @grid-gutter-width / 2 ) -( @grid-gutter-width / 2 );
+  padding: 0;
+  list-style: none;
+
+  > * {
+    width: 100%;
+    float: left;
+    padding-left: ( @grid-gutter-width / 2 );
+    padding-right: ( @grid-gutter-width / 2 );
+    margin-bottom: ( @grid-gutter-width / 2 );
+  }
+}
+
+@media only screen {
+  .generate-block-grid( tiny );
+}
+
+@media screen and ( min-width: @screen-small ) {
+  .generate-block-grid( small );
+}
+
+@media screen and ( min-width: @screen-medium ) {
+  .generate-block-grid( medium );
+}
+
+@media screen and ( min-width: @screen-large ) {
+  .generate-block-grid( large );
+}
