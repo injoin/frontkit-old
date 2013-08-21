@@ -42,7 +42,6 @@
         _positionElement: function( scrollTop ) {
             var position, nowActive;
             var wasActive =     this.active;
-            var offsetHeight =  document.body.offsetHeight;
             var scrollHeight =  $( document ).height();
             var elemHeight =    this.element.outerHeight();
             var elemOffset =    this.element.offset().top;
