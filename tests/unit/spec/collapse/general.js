@@ -34,10 +34,11 @@
     });
 
     test( "Toggle wrapper on click", function() {
+        expect( 2 );
+
         var $collapse;
         this.trigger.collapse( "option", "element", this.collapsible );
         $collapse = $( ".collapse" );
-        console.log($collapse.length);
 
         this.trigger.trigger( "click" );
         ok( $collapse.is( ":visible" ), "Shows the wrapper" );
@@ -47,6 +48,8 @@
     });
 
     test( "Destroy", function() {
+        expect( 1 );
+
         this.trigger.collapse( "destroy" );
         strictEqual( $( ".collapse" ).length, 0, "Removes the wrapper" );
 
