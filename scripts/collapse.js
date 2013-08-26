@@ -20,7 +20,7 @@
         },
 
         _initialize: function() {
-            this._on( "click", $.proxy( this._toggleCollapse, this ) );
+            this._on( "click", $.proxy( this.toggle, this ) );
         },
 
         _destroy: function() {
@@ -33,7 +33,7 @@
         _setOption: function( name, value ) {
             if ( name === "element" ) {
                 if ( typeof value === "string" || value.nodeType ) {
-                    value = $( value );
+                    value = $( value ).eq( 0 );
                 } else if ( !( value instanceof $ ) ) {
                     value = null;
                 }
@@ -51,10 +51,10 @@
         },
 
         // Toggle collapsed state of the wrapper element.
-        _toggleCollapse: function() {
+        toggle: function() {
             var sideWidth;
             var data = {
-                collapsed: this.wrapper.is( ":visible" )
+                collapsed: this.visible
             };
 
             // Allow canceling collapsing
@@ -86,7 +86,7 @@
             }
 
             this.visible = !this.visible;
-            data.collapsed = true;
+            data.collapsed = this.visible;
             this._trigger( "collapse", null, data );
         },
 
