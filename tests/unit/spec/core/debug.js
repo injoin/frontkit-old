@@ -1,6 +1,11 @@
 (function( $, sinon ) {
     "use strict";
 
+    // Prevent IE problems by faking the console var
+    window.console = window.console || {
+        log: function() {}
+    };
+
     module( "Frontkit debug", {
         setup: function() {
             $.frontkit.debug = true;

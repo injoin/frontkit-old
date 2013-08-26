@@ -4,6 +4,7 @@
     var frontkitWidgetId = 0;
 
     function log( message ) {
+        var console = window.console;
         if ( console && console.log && $.frontkit.debug ) {
             console.log( "[Frontkit " + $.frontkit.version + "] " + JSON.stringify( message ) );
         }
