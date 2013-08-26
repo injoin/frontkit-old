@@ -31,10 +31,10 @@ module.exports = exports = function( grunt ) {
             options: {
                 jshintrc: ".jshintrc"
             },
-            all: [ "scripts/*.js" ]
+            all: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
         },
         jscs: {
-            all: [ "scripts/*.js" ]
+            all: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
         },
         concat: {
             dev: {
@@ -45,7 +45,8 @@ module.exports = exports = function( grunt ) {
         qunit: {
             dev: [
                 "tests/unit/core.html",
-                "tests/unit/affix.html"
+                "tests/unit/affix.html",
+                "tests/unit/collapse.html"
             ]
         }
     });
