@@ -17,6 +17,8 @@
     });
 
     test( "$.frontkit.debug switch", function() {
+        expect( 2 );
+
         $.frontkit.log( "frontkit debug test" );
         strictEqual(
             this.console.callCount,
@@ -34,6 +36,8 @@
     });
 
     test( "log format", function() {
+        expect( 2 );
+
         var testArr = [ "foobar", true, 1 ];
         var stringifiedArr = JSON.stringify( testArr );
         var json = sinon.spy( JSON, "stringify" );
