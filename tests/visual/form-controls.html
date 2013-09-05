@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Frontkit Visual Tests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="../../dist/frontkit.css">
+        <link rel="stylesheet" type="text/css" href="lib/tests.css">
+    </head>
+    <body>
+        <div class="container">
+            <header class="page-header">
+                <h1>
+                    Frontkit Visual Tests
+                    <small><a href="index.html">go back</a></small>
+                </h1>
+            </header>
+
+            <p>
+                Every control below must have the exact same height (pixel perfect).
+                Checkboxes and radios must be vertically aligned within the others.
+            </p>
+
+            <div class="test">
+                <div class="row test-highlight">
+                    <div class="col tiny-1">
+                        <input type="text" placeholder="text" class="form-control">
+                    </div>
+                    <div class="col tiny-1">
+                        <input type="search" placeholder="search" class="form-control">
+                    </div>
+                    <div class="col tiny-1">
+                        <select class="form-control">
+                            <option>Option</option>
+                        </select>
+                    </div>
+                    <div class="col tiny-1">
+                        <button class="btn btn-default">
+                            Button
+                        </button>
+                    </div>
+                    <div class="col tiny-1">
+                        <input type="button" class="btn btn-default" value="input">
+                    </div>
+                </div>
+            </div>
+
+            <p>Checkbox and radio must be vertically aligned to the text.</p>
+            <div class="test">
+                <div class="test-highlight form-inline">
+                    <div class="checkbox">
+                        <input type="checkbox">
+                        Lorem ipsum
+                    </div>
+                    <div class="radio">
+                        <input type="radio">
+                        Lorem ipsum
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox">
+                        <label>Labelled</label>
+                    </div>
+                    <div class="radio">
+                        <input type="radio">
+                        <label>Labelled</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

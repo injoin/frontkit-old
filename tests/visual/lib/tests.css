@@ -1,0 +1,18 @@
+/* TESTS
+---------------------------------------- */
+
+.test {
+  margin-bottom: 20px;
+  border: 1px dashed;
+  padding: 5px;
+}
+
+.test-highlight {
+  background-color: rgba( 255, 0, 0, .2 );
+}
+
+.test-highlight .form-control,
+.test-highlight .radio,
+.test-highlight .checkbox {
+  margin-bottom: 0;
+}
