@@ -235,7 +235,7 @@
 
         // Delegate events to the widget element
         _on: function( event, selector, handler ) {
-            var widget = this;
+            var that = this;
 
             if ( $.isPlainObject( event ) ) {
                 $.each( event, function( handler, evt ) {
@@ -243,7 +243,7 @@
                     event = evt[ 0 ];
                     selector = evt[ 1 ];
 
-                    widget._on( event, selector, handler );
+                    that._on( event, selector, handler );
                 });
             } else {
                 if ( arguments.length === 2 ) {
@@ -255,10 +255,10 @@
                     return;
                 }
 
-                widget.element.on( ( event || "" ) + this.eventNamespace, selector, handler );
+                that.widget().on( ( event || "" ) + that.eventNamespace, selector, handler );
             }
 
-            return this;
+            return that;
         },
 
         // Undelegate events to the widget element
@@ -270,10 +270,15 @@
                 }
             } else {
                 event = typeof event === "string" ? event : "";
-                this.element.off( event + this.eventNamespace, selector );
+                this.widget().off( event + this.eventNamespace, selector );
             }
 
             return this;
+        },
+
+        // Returns the element which wraps the widget.
+        widget: function() {
+            return this.element;
         }
     });
 
