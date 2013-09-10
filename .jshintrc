@@ -10,5 +10,6 @@
     "strict": true,
     "noempty": true,
     "curly": true,
+    "expr": true,
     "quotmark": "double"
 }
