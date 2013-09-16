@@ -1,0 +1,36 @@
+/* MODALS
+---------------------------------------- */
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: @zindex-modal;
+  min-width: @modal-min-width;
+  max-width: @modal-max-width;
+  min-height: @modal-min-height;
+  max-height: @modal-max-height;
+  padding: @padding-base-vertical @padding-base-horizontal;
+  background-color: @modal-bg;
+  border-radius: @modal-border-radius;
+  .box-shadow( 0 0 5px 0 rgba( 0, 0, 0, .5 ) );
+}
+
+.modal-header {
+  display: table;
+  margin-bottom: @padding-base-vertical;
+  padding-bottom: @padding-base-vertical;
+  border-bottom: 1px solid @gray-lighter;
+
+  .modal-header-title,
+  .close {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.modal-header-title {
+  width: 100%;
+  padding-right: @padding-base-horizontal;
+  font-size: @font-size-large;
+}
