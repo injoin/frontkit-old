@@ -98,3 +98,24 @@ fieldset[ disabled ] .btn.btn-link {
   padding-left: 0;
   padding-right: 0;
 }
+
+// input.btn hacks
+// ---------------
+
+/**
+ * Firefox has line-height: normal !important, which is not overridable, so
+ * 1. we go with the same line-height
+ * 2. we ensure it has a good height
+ */
+input.btn {
+  height: @input-height-base; /* 2 */
+  line-height: normal; /* 1 */
+
+  &.btn-small {
+    height: @input-height-small;
+  }
+
+  &.btn-large {
+    height: @input-height-large;
+  }
+}
