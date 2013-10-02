@@ -12,10 +12,11 @@
     },
     "devDependencies": {
         "grunt": "~0.4.x",
+        "grunt-karma": "~0.6.2",
+        "karma-mocha": "0.1.x",
         "grunt-contrib-concat": "0.3.x",
         "grunt-contrib-less": "0.7.x",
         "grunt-contrib-watch": "0.5.x",
-        "grunt-contrib-qunit": "0.2.x",
         "grunt-contrib-jshint": "0.6.x",
         "grunt-jscs-checker": ">=0.1.5"
     },
