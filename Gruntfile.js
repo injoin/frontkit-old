@@ -31,23 +31,35 @@ module.exports = exports = function( grunt ) {
             options: {
                 jshintrc: ".jshintrc"
             },
-            all: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
+            all: "<%= jscs.all %>"
         },
         jscs: {
-            all: [ "scripts/*.js", "tests/unit/spec/**/*.js" ]
+            all: [
+                // Source
+                "scripts/*.js",
+
+                // Test specs
+                "tests/unit/spec/**/*.js",
+
+                // Test configs
+                "tests/unit/*.js",
+
+                // Our Gruntfile of course :)
+                "Gruntfile.js"
+            ]
         },
         concat: {
             dev: {
-                src: [ "scripts/core.js", "scripts/*.js" ],
+                src: [ "scripts/module.js", "scripts/jQLite.js", "scripts/*.js" ],
                 dest: "dist/frontkit.js"
             }
         },
-        qunit: {
-            dev: [
-                "tests/unit/core.html",
-                "tests/unit/affix.html",
-                "tests/unit/collapse.html"
-            ]
+        karma: {
+            unit: {
+                configFile: "tests/unit/karma.conf.js",
+                singleRun: true,
+                browsers: [ "PhantomJS" ]
+            }
         }
     });
 
@@ -55,13 +67,13 @@ module.exports = exports = function( grunt ) {
     grunt.loadNpmTasks( "grunt-contrib-less" );
     grunt.loadNpmTasks( "grunt-contrib-watch" );
     grunt.loadNpmTasks( "grunt-contrib-concat" );
-    grunt.loadNpmTasks( "grunt-contrib-qunit" );
     grunt.loadNpmTasks( "grunt-contrib-jshint" );
     grunt.loadNpmTasks( "grunt-jscs-checker" );
+    grunt.loadNpmTasks( "grunt-karma" );
 
     // Group tasks by scripts/styles
     grunt.registerTask( "styles", [ "less" ]);
-    grunt.registerTask( "scripts", [ "jshint", "jscs", "qunit", "concat" ]);
+    grunt.registerTask( "scripts", [ "jshint", "jscs", "karma", "concat" ]);
 
     // Mixed tasks
     grunt.registerTask( "default", [ "styles", "scripts" ]);

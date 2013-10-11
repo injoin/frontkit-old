@@ -1,0 +1,12 @@
+#jqlite-test {
+  width: 150px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Chrome gives the right z-index only when positioned */
+.modal {
+  position: fixed;
+}

@@ -1,8 +1,10 @@
 {
     "browser": true,
-    "jquery": true,
 
     "maxlen": 100,
+    "maxdepth": 5,
+    "maxparams": 5,
+
     "eqeqeq": true,
     "eqnull": true,
     "validthis": true,
@@ -11,5 +13,11 @@
     "noempty": true,
     "curly": true,
     "expr": true,
-    "quotmark": "double"
+    "noarg": true,
+    "passfail": false,
+    "unused": true,
+    "boss": true,
+    "quotmark": "double",
+
+    "predef": [ "angular" ]
 }
