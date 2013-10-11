@@ -1,232 +1,278 @@
-(function( $, document ) {
+!function( angular ) {
     "use strict";
+
+    var $ = angular.element;
+    var forEach = angular.forEach;
+    var module = angular.module( "frontkit.modal", [ "frontkit.utils" ] );
+    var modalScope = {
+        title: "@",
+        closeOn: "@",
+        width: "@",
+        height: "@"
+    };
 
     var zindexOverlay, zindexModal;
     var zindex = 1;
     var openModals = [];
-    var $document = $( document );
-    var classes = {
-        HIDE: "hide",
-        INVISIBLE: "invisible",
-        WRAPPER: "modal",
-        TITLE: "modal-header-title",
-        CONTENT: "modal-content",
-        OVERLAY: "overlay"
-    };
 
-    $.frontkit( "modal", {
-        originalPosition: null,
-        originalCss: null,
-        overlay: null,
-        wrapper: null,
-        isOpen: false,
-        options: {
-            width: "auto",
-            height: "auto",
-            title: "",
-            closeOn: "both"
-        },
+    function ModalManager() {
+        var promise, element, controller;
+        var that = this;
 
-        _initialize: function() {
-            var $element = this.element;
-
-            // Keep the original position of the element
-            this.originalPosition = {
-                parent: $element.parent(),
-                index: $element.parent().children().index( $element )
-            };
-
-            // Also keep the original CSS of the element
-            this.originalCss = $element.css([
-                "display",
-                "width",
-                "height",
-                "min-height",
-                "max-height"
-            ]);
-
-            // Create the wrapper structure of the modal
-            this._createWrapper();
-
-            // Bind some events somewhere else
-            this._bindEvents();
-        },
-
-        _destroy: function() {
-            // Place the element in its original position
-            var $children = this.originalPosition.parent.children();
-            var index = this.originalPosition.index;
-            index = index > $children.length ? $children.length - 1 : index;
-
-            $children.eq( index ).insertAfter( this.element );
-
-            // Also restore the CSS
-            this.element.css( this.originalCss );
-
-            // Remove the content class from the element aswell
-            this.element.removeClass( classes.CONTENT );
-
-            // Remove other stuff from the DOM
-            this.wrapper.remove();
-            this.overlay && this.overlay.remove();
-        },
-
-        _setOption: function( key, value ) {
-            if ( key === "title" && this.wrapper ) {
-                this._setTitle( value );
-            } else if ( key === "closeOn" ) {
-                value = String( value ).toLowerCase();
-
-                if ( [ "both", "escape", "overlay" ].indexOf( value.toLowerCase() ) === -1 ) {
-                    value = false;
-                }
-            } else if ( key === "width" || key === "height" ) {
-                value = !value ? "auto" : value;
-            }
-
-            this.super( key, value );
-        },
-
-        widget: function() {
-            return this.wrapper;
-        },
-
-        // Sets the title of the modal in the element
-        _setTitle: function( title ) {
-            this.wrapper.find( "." + classes.TITLE ).html( title );
-        },
-
-        // Open the modal, sets its width/height and create the overlay (if needed)
-        open: function() {
-            var wrapperWidth, wrapperHeight;
-            var modal = this;
-            var $overlay = modal.overlay;
-            var $wrapper = modal.wrapper;
-
-            if ( modal.isOpen ) {
-                // Nothing to do, we're already open
-                return;
-            }
-
-            // Increment the zindex to keep it in the top of the stack
-            zindex++;
-
-            if ( !$overlay ) {
-                modal.overlay = $overlay = $( document.createElement( "div" ) );
-                $overlay.addClass( classes.OVERLAY );
-                $overlay.css( "z-index", zindexOverlay + zindex );
-                $overlay.appendTo( document.body );
-
-                $overlay.on( "click", function() {
-                    if ( modal._closeable( "overlay" ) ) {
-                        modal.close();
-                    }
-                });
-            }
-
-            $overlay.show();
-
-            $wrapper.css( "z-index", zindexModal + zindex );
-            $wrapper.toggleClass( classes.INVISIBLE + " " + classes.HIDE );
-
-            // Set and get the wrapper width
-            if ( modal.options.width !== "auto" ) {
-                wrapperWidth = $wrapper.outerWidth( modal.options.width ).outerWidth();
-            } else {
-                wrapperWidth = $wrapper.outerWidth();
-                $wrapper.css( "width", wrapperWidth );
-            }
-
-            // Set and get the wrapper height
-            if ( modal.options.height !== "auto" ) {
-                wrapperHeight = $wrapper.outerHeight( modal.options.height ).outerHeight();
-            } else {
-                wrapperHeight = $wrapper.outerHeight();
-                $wrapper.css( "height", wrapperHeight );
-            }
-
-            $wrapper.css({
-                "margin-left": -( wrapperWidth / 2 ),
-                "margin-top": -( wrapperHeight / 2 )
+        that.$$setPromise = function( $promise ) {
+            promise = $promise.then(function( $element ) {
+                element = $element;
+                controller = element.controller( "fkModal" );
             });
 
-            $wrapper.removeClass( classes.INVISIBLE );
+            return that;
+        };
 
-            modal.isOpen = true;
-            openModals.unshift( this );
-        },
+        forEach( [ "isOpen", "open", "close", "destroy" ], function( method ) {
+            that[ method ] = function() {
+                promise = promise.then(function() {
+                    // Forward arguments to the method
+                    controller[ "$" + method ].apply( controller, arguments );
+                });
 
-        // Closes the modal
-        close: function() {
-            this.overlay.hide();
-            this.wrapper.addClass( classes.HIDE );
-            this.isOpen = false;
-        },
+                return that;
+            };
+        });
+    }
 
-        // Toggle open/close the modal.
-        toggle: function() {
-            return this.isOpen ? this.close() : this.open();
-        },
+    module.directive( "fkModal", [
+        "$document",
+        function( $document ) {
+            var definition = {};
 
-        _createWrapper: function() {
-            var $wrapper, $content, $header, $close, $title;
+            definition.replace = true;
+            definition.transclude = true;
+            definition.restrict = "EA";
+            definition.scope = modalScope;
 
-            $wrapper = this.wrapper = $( document.createElement( "div" ) );
-            $wrapper.addClass( classes.WRAPPER + " " + classes.HIDE );
-            $wrapper.appendTo( document.body );
+            definition.template =
+                "<div class='modal hide'>" +
+                    "<div class='modal-header'>" +
+                        "<div class='modal-header-title'>{{ title }}</div>" +
+                        "<span class='close' ng-click='$close()'>&times;</span>" +
+                    "</div>" +
+                    "<div ng-transclude></div>" +
+                "</div>";
 
-            $header = $( document.createElement( "div" ) );
-            $header.addClass( "modal-header" );
-            $header.appendTo( $wrapper );
+            definition.controller = [
+                "$scope",
+                "$element",
+                function( $scope, $element ) {
+                    var ctrl = this;
+                    var opened = false;
 
-            // The title bar will receive the title now, as the init runs after the options were set
-            $title = $( document.createElement( "div" ) );
-            $title.addClass( classes.TITLE );
-            $title.appendTo( $header );
-            this._setTitle( this.options.title );
+                    ctrl.$open = function() {
+                        var width, height;
 
-            $close = $( document.createElement( "span" ) );
-            $close.addClass( "close" ).html( "&times;" );
-            $close.appendTo( $header );
+                        if ( opened ) {
+                            return ctrl;
+                        }
 
-            $content = this.element;
-            $content.addClass( classes.CONTENT ).removeClass( classes.HIDE );
-            $content.show();
-            $content.appendTo( $wrapper  );
-        },
+                        // Make the element invisible to avoid an unpositioned flash
+                        $element.addClass( "invisible" );
+                        $element.removeClass( "hide" );
 
-        _bindEvents: function() {
-            this._on( "click", ".close", $.proxy( this.close, this ) );
-        },
+                        // Set and get modal width
+                        if ( $scope.width !== "auto" ) {
+                            width = $element.width( $scope.width ).width();
+                        } else {
+                            width = $element.width();
+                            $element.width( width );
+                        }
 
-        _closeable: function( type ) {
-            var option = this.options.closeOn;
-            if ( type === "escape" ) {
-                return option === "both" || option === "escape";
-            } else if ( type === "overlay" ) {
-                return option === "both" || option === "overlay";
+                        // Set and get modal height
+                        if ( $scope.height !== "auto" ) {
+                            height = $element.height( $scope.height ).height();
+                        } else {
+                            height = $element.height();
+                            $element.height( height );
+                        }
+
+                        zindex++;
+
+                        $scope.overlay.css( "z-index", zindexOverlay + zindex );
+                        $scope.overlay.removeClass( "hide" );
+
+                        $element.css({
+                            "margin-left": parseInt( -width / 2, 10 ) + "px",
+                            "margin-top": parseInt( -height / 2, 10 ) + "px",
+                            "z-index": zindexModal + zindex
+                        });
+
+                        opened = true;
+                        openModals.unshift( ctrl );
+
+                        // Modal is good to go.
+                        $element.removeClass( "invisible" );
+
+                        return ctrl;
+                    };
+
+                    ctrl.$close = function() {
+                        if ( !opened ) {
+                            return ctrl;
+                        }
+
+                        $element.addClass( "hide" );
+                        $scope.overlay.addClass( "hide" );
+                        opened = false;
+
+                        openModals.splice( openModals.indexOf( ctrl ), 1 );
+
+                        return ctrl;
+                    };
+
+                    ctrl.$destroy = function() {
+                        // The open modals array must no longer store this controller
+                        var indexOf = openModals.indexOf( ctrl );
+                        indexOf > -1 && openModals.splice( indexOf, 1 );
+
+                        $scope.$destroy();
+                        $element.remove();
+                    };
+
+                    ctrl.$isOpen = function() {
+                        return opened;
+                    };
+
+                    ctrl.closeable = function( type ) {
+                        var option = $scope.closeOn || "both";
+                        return option === "both" || option === type;
+                    };
+
+                    return ctrl;
+                }
+            ];
+
+            definition.compile = function( template, attrs ) {
+                // Set default width
+                if ( !attrs.width ) {
+                    attrs.$set( "width", "auto" );
+                }
+
+                // Set default height
+                if ( !attrs.height ) {
+                    attrs.$set( "height", "auto" );
+                }
+
+                return definition.link;
+            };
+
+            definition.link = function( $scope, $element, $attr, ctrl ) {
+                var $overlay;
+                var $body = $document.find( "body" );
+
+                // We create an overlay for our modal window
+                $scope.overlay = $overlay = $( "<div></div>" ).addClass( "overlay hide" );
+                $body.append( $scope.overlay );
+
+                // Move the element to the body
+                $body.append( $element );
+
+                // Scope bindings
+                // --------------
+                // Provide a way to close the modal from inside itself
+                $scope.$close = ctrl.$close;
+
+                // DOM Events
+                // ----------
+                // Close the modal on clicking in its overlay
+                $overlay.on( "click", function() {
+                    if ( ctrl.closeable( "overlay" ) ) {
+                        ctrl.$close();
+                    }
+                });
+
+                // The overlay must go away together with the element itself
+                $scope.$on( "$destroy", function() {
+                    $overlay.remove();
+                });
+            };
+
+            return definition;
+        }
+    ]);
+
+    module.provider( "$modal", function() {
+        var $provider = {};
+
+        $provider.$get = [
+            "$rootScope",
+            "$templatePromise",
+            "$compile",
+            function( $rootScope, $templatePromise, $compile ) {
+                return {
+                    create: function( options ) {
+                        var promise, instance, $element;
+                        var scope = ( options.scope || $rootScope ).$new();
+
+                        if ( !options.template && !options.templateUrl ) {
+                            throw new Error(
+                                "Either template or templateUrl option must be passed."
+                            );
+                        }
+
+                        promise = $templatePromise(
+                            options.template,
+                            options.templateUrl
+                        ).then(function( template ) {
+                            $element = $( "<fk-modal></fk-modal>" );
+                            $element.html( template );
+
+                            scope.$modalOptions = {};
+                            angular.forEach( modalScope, function( binding, key ) {
+                                scope.$modalOptions[ key ] = options[ key ];
+                                $element.attr(
+                                    key,
+                                    binding[ 0 ] === "@" ? options[ key ] : "$modalOptions." + key
+                                );
+                            });
+
+                            $element = $compile( $element )( scope );
+                        });
+
+                        instance = new ModalManager();
+                        instance.$$setPromise( promise );
+
+                        return instance;
+                    }
+                };
             }
+        ];
 
-            return false;
+        return $provider;
+    });
+
+    module.run([
+        "$document",
+        function( $document ) {
+            //$document.ready(function() {
+                // Create a test div to pick the base z-index of overlays and modals.
+                // This is done so we don't have to get calculating this everytime
+                var $testDiv = $( $document[ 0 ].createElement( "div" ) );
+                $document.find( "body" ).append( $testDiv );
+
+                zindexOverlay = +$testDiv.addClass( "overlay" ).css( "z-index" ) || 0;
+                zindexModal = +$testDiv.toggleClass( "overlay modal" ).css( "z-index" ) || 0;
+
+                // Everything we need was done, remove this div.
+                $testDiv.remove();
+            //});
+
+            $document.on( "keyup", function( e ) {
+                var key = e.keyCode || e.which;
+                if ( key === 27 &&
+                    openModals.length &&
+                    openModals[ 0 ].closeable( "escape" ) ) {
+                    openModals.shift().$close();
+                }
+            });
         }
-    });
+    ]);
 
-    $document.on( "ready", function() {
-        // Create a test div to pick the z-index of overlays and modals.
-        // This is done so we don't have to get calculating this everytime
-        var $testDiv = $( document.createElement( "div" ) ).appendTo( document.body );
-        zindexOverlay = +$testDiv.addClass( "overlay" ).css( "z-index" ) || 0;
-        zindexModal = +$testDiv.toggleClass( "overlay modal" ).css( "z-index" ) || 0;
-
-        // Everything we needed was done, just remove it.
-        $testDiv.remove();
-    });
-
-    $document.on( "keyup", function( e ) {
-        // ESC pressed? Let's close the topmost modal - if it can
-        if ( e.keyCode === 27 && openModals.length && openModals[ 0 ]._closeable( "escape" ) ) {
-            openModals.shift().close();
-        }
-    });
-
-})( jQuery, document );
+}( angular );
