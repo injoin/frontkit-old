@@ -1,6 +1,8 @@
 module.exports = exports = function( grunt ) {
     "use strict";
 
+    var sauceLabsBrowsers = process.env.SAUCE_BROWSERS;
+
     grunt.initConfig({
         // Watch
         // ------------------------------------------------------------
@@ -58,7 +60,7 @@ module.exports = exports = function( grunt ) {
             unit: {
                 configFile: "tests/unit/karma.conf.js",
                 singleRun: true,
-                browsers: [ "PhantomJS" ]
+                browsers: sauceLabsBrowsers ? sauceLabsBrowsers.split( "," ) : [ "PhantomJS" ]
             }
         }
     });

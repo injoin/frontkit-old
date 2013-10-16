@@ -3,3 +3,9 @@ install: npm install -d
 language: node_js
 node_js:
 - "0.10"
+
+env:
+  global:
+    - SAUCE_USERNAME=injoin
+    - SAUCE_ACCESS_KEY=b4c14a62-0f4e-48ae-8036-14f0a3a2d0bd
+    - SAUCE_BROWSERS=SL_Chrome,SL_Firefox,SL_Safari,SL_IE_9,SL_IE_10

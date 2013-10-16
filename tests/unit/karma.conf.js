@@ -3,13 +3,9 @@ module.exports = function( config ) {
     "use strict";
 
     config.set({
-        // base path, that will be used to resolve files and exclude
+        // Point the base path to the project root
         basePath: "../../",
-
-        // frameworks to use
         frameworks: [ "mocha" ],
-
-        // list of files / patterns to load in the browser
         files: [
             "tests/unit/lib/angular.js",
             "tests/unit/lib/angular-mocks.js",
@@ -25,47 +21,57 @@ module.exports = function( config ) {
             // Specs
             "tests/unit/spec/**/*.js"
         ],
-
-        // list of files to exclude
         exclude: [],
-
-        // test results reporter to use
-        // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: [ "progress" ],
-
-        // web server port
         port: 9876,
-
-        // enable / disable colors in the output (reporters and logs)
         colors: true,
-
-        // level of logging
-        // possible values:
-        // - config.LOG_DISABLE
-        // - config.LOG_ERROR
-        // - config.LOG_WARN
-        // - config.LOG_INFO
-        // - config.LOG_DEBUG
         logLevel: config.LOG_INFO,
-
-        // enable / disable watching file and executing tests whenever any file changes
         autoWatch: false,
-
-        // Start these browsers, currently available:
-        // - Chrome
-        // - ChromeCanary
-        // - Firefox
-        // - Opera
-        // - Safari (only Mac)
-        // - PhantomJS
-        // - IE (only Windows)
         browsers: [ "Chrome", "Firefox", "PhantomJS" ],
-
-        // If browser does not capture in given timeout [ms], kill it
         captureTimeout: 60000,
 
-        // Continuous Integration mode
-        // if true, it capture browsers, run tests and exit
-        singleRun: false
+        // CI mode is set in the Gruntfile.
+        singleRun: false,
+
+        // Sauce Labs configs
+        sauceLabs: {
+            testName: "Frontkit",
+            startConnect: true,
+            recordScreenshots: false,
+            tunnelIdentifier: process.env.TRAVIS_JOB_RUNNER
+        },
+        customLaunchers: {
+            "SL_Chrome": {
+                base: "SauceLabs",
+                browserName: "chrome"
+            },
+            "SL_Firefox": {
+                base: "SauceLabs",
+                browserName: "firefox"
+            },
+            "SL_Safari": {
+                base: "SauceLabs",
+                browserName: "safari",
+                platform: "Mac 10.8",
+                version: "6"
+            },
+            "SL_IE_9": {
+                base: "SauceLabs",
+                browserName: "internet explorer",
+                platform: "Windows 2008",
+                version: "9"
+            },
+            "SL_IE_10": {
+                base: "SauceLabs",
+                browserName: "internet explorer",
+                platform: "Windows 2012",
+                version: "10"
+            }
+        }
     });
+
+    if ( process.env.TRAVIS ) {
+        config.transports = [ "xhr-polling" ];
+        config.reporters = [ "dots" ];
+    }
 };

@@ -12,13 +12,15 @@
     },
     "devDependencies": {
         "grunt": "~0.4.x",
-        "grunt-karma": "~0.6.2",
+        "karma": "~0.11.0",
+        "grunt-karma": "git://github.com/karma-runner/grunt-karma.git",
         "karma-mocha": "0.1.x",
+        "karma-sauce-launcher": "0.1.x",
         "grunt-contrib-concat": "0.3.x",
         "grunt-contrib-less": "0.7.x",
         "grunt-contrib-watch": "0.5.x",
         "grunt-contrib-jshint": "0.6.x",
-        "grunt-jscs-checker": ">=0.1.5"
+        "grunt-jscs-checker": "0.2.x"
     },
     "engines": {
         "node": ">=0.10.0"
